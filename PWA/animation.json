@@ -1,0 +1,81 @@
+{
+  "animation": {
+    "title": "OPERATION BLACKOUT",
+    "duration": "12s",
+    "loop": true,
+    "scenes": [
+      {
+        "id": "loading_screen",
+        "elements": [
+          {
+            "type": "background",
+            "image": "operation_blackout_poster",
+            "animation": "slowZoomIn",
+            "duration": "12s"
+          },
+          {
+            "type": "smoke",
+            "position": "bottom",
+            "animation": "driftUp",
+            "opacity": 0.6,
+            "duration": "10s"
+          },
+          {
+            "type": "sparks",
+            "position": "bottom-center",
+            "animation": "scatter",
+            "duration": "4s",
+            "repeat": true
+          },
+          {
+            "type": "text",
+            "content": "OPERATION BLACKOUT",
+            "style": "metallicBold",
+            "animation": "fadeIn",
+            "duration": "2s"
+          },
+          {
+            "type": "progressBar",
+            "position": "bottom",
+            "animation": "fill",
+            "duration": "8s",
+            "color": "#FF4500"
+          },
+          {
+            "type": "helicopter",
+            "position": "top-left",
+            "animation": "flyAcross",
+            "duration": "6s",
+            "repeat": true
+          }
+        ],
+        "audio": [
+          {
+            "type": "ambient",
+            "file": "battlefield_rumble.mp3",
+            "volume": 0.4,
+            "loop": true
+          },
+          {
+            "type": "effect",
+            "file": "helicopter_rotor.wav",
+            "volume": 0.6,
+            "syncWith": "helicopter"
+          },
+          {
+            "type": "effect",
+            "file": "distant_gunfire.wav",
+            "volume": 0.5,
+            "interval": "random"
+          },
+          {
+            "type": "effect",
+            "file": "explosion_boom.wav",
+            "volume": 0.7,
+            "trigger": "sparks"
+          }
+        ]
+      }
+    ]
+  }
+}
