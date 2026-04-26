@@ -623,6 +623,325 @@
     .setting-row label { flex: 0 0 130px; font-size: 10px; }
   }
 
+  /* ============== MULTIPLAYER LOBBY ============== */
+  .mp-cards {
+    display: flex; gap: 14px; justify-content: center;
+    margin: 18px 0;
+    flex-wrap: wrap;
+  }
+  .mp-card {
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(0,217,255,0.4);
+    color: #fff;
+    padding: 22px 26px;
+    cursor: pointer;
+    min-width: 200px;
+    text-align: center;
+    transition: all 0.18s;
+    font-family: 'Black Ops One', monospace;
+  }
+  .mp-card:hover {
+    background: rgba(0,217,255,0.15);
+    border-color: #00d9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,217,255,0.25);
+  }
+  .mp-card-icon {
+    font-size: 32px;
+    color: #00d9ff;
+    margin-bottom: 8px;
+    text-shadow: 0 0 14px rgba(0,217,255,0.6);
+  }
+  .mp-card-title {
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .mp-card-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #888;
+    letter-spacing: 1px;
+    line-height: 1.4;
+  }
+  .mp-code-box {
+    background: rgba(0,0,0,0.6);
+    border: 2px solid rgba(0,217,255,0.5);
+    padding: 18px 24px;
+    margin: 16px auto;
+    max-width: 360px;
+    text-align: center;
+  }
+  .mp-code-label {
+    color: #00d9ff;
+    font-family: 'Black Ops One', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .mp-code {
+    font-family: 'Black Ops One', monospace;
+    font-size: clamp(28px, 5vw, 42px);
+    letter-spacing: 8px;
+    color: #ffce00;
+    text-shadow: 0 0 16px rgba(255,206,0,0.6);
+    user-select: all;
+    margin-bottom: 10px;
+  }
+  .mp-copy-btn {
+    background: rgba(0,217,255,0.15);
+    border: 1px solid rgba(0,217,255,0.5);
+    color: #00d9ff;
+    font-family: 'Black Ops One', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 5px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .mp-copy-btn:hover { background: rgba(0,217,255,0.3); }
+  .mp-copy-btn.copied {
+    background: rgba(0,255,140,0.2);
+    border-color: #00ff8c;
+    color: #00ff8c;
+  }
+  /* Mode picker */
+  .mp-mode-picker {
+    margin: 14px auto;
+    max-width: 460px;
+  }
+  .mp-mode-label {
+    color: #00d9ff;
+    font-family: 'Black Ops One', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .mp-mode-tabs {
+    display: flex; gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .mp-mode-tab {
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #aaa;
+    font-family: 'Black Ops One', monospace;
+    padding: 10px 18px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 160px;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .mp-mode-tab:hover { border-color: rgba(0,217,255,0.4); color: #fff; }
+  .mp-mode-tab.active {
+    background: rgba(0,217,255,0.18);
+    border-color: #00d9ff;
+    color: #ffce00;
+    box-shadow: 0 0 14px rgba(0,217,255,0.25);
+  }
+  .mp-mode-name {
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
+  .mp-mode-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #888;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  /* Match HUD (DM only) */
+  .mp-match-hud {
+    position: absolute;
+    top: 8px; right: 14px;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,42,42,0.4);
+    padding: 5px 10px;
+    font-family: 'Black Ops One', monospace;
+    font-size: 11px;
+    color: #fff;
+    letter-spacing: 2px;
+    z-index: 13;
+    backdrop-filter: blur(6px);
+    text-align: right;
+  }
+  .mp-match-hud-frag { color: #ffce00; font-size: 14px; }
+  .mp-match-hud-time { color: #00d9ff; font-size: 10px; margin-top: 2px; }
+
+  /* Respawn overlay */
+  .mp-respawn {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 60;
+    display: none;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .mp-respawn.show { display: flex; }
+  .mp-respawn-msg {
+    font-family: 'Black Ops One', monospace;
+    color: #ff2a2a;
+    font-size: clamp(28px, 5vw, 50px);
+    letter-spacing: 6px;
+    text-shadow: 0 0 16px rgba(255,42,42,0.6);
+    margin-bottom: 12px;
+  }
+  .mp-respawn-killer {
+    color: #ccc;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+  }
+  .mp-respawn-timer {
+    font-family: 'Black Ops One', monospace;
+    color: #ffce00;
+    font-size: 60px;
+    letter-spacing: 8px;
+    text-shadow: 0 0 20px rgba(255,206,0,0.5);
+  }
+  .mp-respawn-sub {
+    color: #888; font-size: 11px;
+    letter-spacing: 3px;
+    margin-top: 14px;
+  }
+  .mp-status {
+    color: #aaa;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin: 10px 0;
+    text-align: center;
+    min-height: 16px;
+  }
+  .mp-status.error { color: #ff6666; }
+  .mp-status.success { color: #00ff8c; }
+  .mp-roster {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px 18px;
+    max-width: 360px;
+    margin: 12px auto;
+  }
+  .mp-roster-label {
+    color: #00d9ff;
+    font-family: 'Black Ops One';
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .mp-roster-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 8px;
+    background: rgba(255,255,255,0.04);
+    margin-bottom: 4px;
+    border-left: 2px solid;
+    font-size: 11px;
+  }
+  .mp-roster-row.you { border-left-color: #ffce00; }
+  .mp-roster-row.peer { border-left-color: #00ff8c; }
+  .mp-roster-row.host { border-left-color: #00d9ff; }
+  .mp-roster-name {
+    color: #fff;
+    font-family: 'Black Ops One';
+    letter-spacing: 1px;
+    flex: 1;
+  }
+  .mp-roster-tag {
+    font-size: 9px;
+    color: #888;
+    font-family: 'JetBrains Mono';
+    letter-spacing: 1px;
+  }
+  .mp-roster-ping {
+    color: #00ff8c;
+    font-family: 'JetBrains Mono';
+    font-size: 10px;
+  }
+  .mp-code-input-wrap {
+    text-align: center;
+    margin: 18px 0;
+  }
+  .mp-code-input {
+    background: rgba(0,0,0,0.5);
+    border: 2px solid rgba(0,217,255,0.4);
+    color: #ffce00;
+    font-family: 'Black Ops One', monospace;
+    font-size: clamp(24px, 5vw, 36px);
+    letter-spacing: 10px;
+    text-align: center;
+    padding: 12px 20px;
+    width: clamp(220px, 60%, 360px);
+    text-transform: uppercase;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .mp-code-input:focus {
+    border-color: #00d9ff;
+    box-shadow: 0 0 16px rgba(0,217,255,0.4);
+  }
+
+  /* In-game multiplayer HUD */
+  .mp-squad-hud {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 12;
+    pointer-events: none;
+    flex-wrap: wrap;
+    max-width: 60vw;
+    justify-content: center;
+  }
+  .mp-squad-hud:empty { display: none; }
+  .mp-mate {
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(0,255,140,0.4);
+    border-radius: 2px;
+    padding: 3px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #fff;
+    letter-spacing: 1px;
+    backdrop-filter: blur(6px);
+  }
+  .mp-mate.dead {
+    border-color: rgba(255,42,42,0.5);
+    color: #ff6666;
+    opacity: 0.6;
+  }
+  .mp-mate-name { font-family: 'Black Ops One'; margin-right: 6px; }
+  .mp-mate-hp { color: #00ff8c; }
+  .mp-mate.dead .mp-mate-hp { color: #ff6666; }
+  /* mobile: smaller squad HUD */
+  @media (max-width: 900px) {
+    .mp-squad-hud { top: 6px; gap: 4px; }
+    .mp-mate { font-size: 9px; padding: 2px 5px; }
+  }
+
+  /* Player nameplate (in-world above remote player heads) */
+  .mp-nameplate-floating {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    pointer-events: none;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(0,255,140,0.5);
+    padding: 2px 6px;
+    font-family: 'Black Ops One', monospace;
+    font-size: 10px;
+    color: #00ff8c;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    text-shadow: 0 0 4px rgba(0,255,140,0.5);
+  }
+
   .controls-info {
     margin-top: 20px;
     background: rgba(0,0,0,0.5);
@@ -988,6 +1307,7 @@
     <div class="game-subtitle">// TACTICAL OPS //</div>
     <div class="menu-divider"></div>
     <button class="menu-btn" id="btnStart">DEPLOY</button>
+    <button class="menu-btn" id="btnMultiplayer" style="border-color: rgba(0,217,255,0.5); color: #66e0ff;">MULTIPLAYER</button>
     <button class="menu-btn" id="btnSettings">CONTROLS &amp; SETTINGS</button>
     <button class="menu-btn" id="btnControls">BRIEFING</button>
     <div class="controls-info" id="controlsInfo" style="display:none;">
@@ -1020,7 +1340,97 @@
   </div>
 </div>
 
-<!-- SETTINGS / CONTROLS CUSTOMIZATION -->
+<!-- MULTIPLAYER LOBBY -->
+<div id="mpMenu" class="menu-screen hidden">
+  <div class="menu-content settings-content">
+    <div class="game-title" style="font-size: clamp(28px, 5vw, 48px); letter-spacing: 4px;">MULTIPLAYER</div>
+    <div class="game-subtitle" style="margin-top:-4px;">// CO-OP &middot; DEATHMATCH //</div>
+    <div class="menu-divider"></div>
+
+    <!-- Lobby selection -->
+    <div id="mpLanding">
+      <div class="settings-hint">Up to 8 operators per match. Choose mode in the lobby.</div>
+      <div class="mp-cards">
+        <button class="mp-card" id="mpHostBtn">
+          <div class="mp-card-icon">▲</div>
+          <div class="mp-card-title">HOST SQUAD</div>
+          <div class="mp-card-sub">Create a lobby and share the code</div>
+        </button>
+        <button class="mp-card" id="mpJoinBtn">
+          <div class="mp-card-icon">▶</div>
+          <div class="mp-card-title">JOIN SQUAD</div>
+          <div class="mp-card-sub">Enter a 6-character squad code</div>
+        </button>
+      </div>
+      <div style="margin-top:18px;">
+        <button class="menu-btn" id="mpBackBtn">BACK</button>
+      </div>
+    </div>
+
+    <!-- Host lobby waiting -->
+    <div id="mpHostLobby" class="hidden">
+      <div class="settings-hint">Share this code with your squad. Game starts when you deploy.</div>
+      <div class="mp-code-box">
+        <div class="mp-code-label">SQUAD CODE</div>
+        <div class="mp-code" id="mpHostCode">------</div>
+        <button class="mp-copy-btn" id="mpCopyCode">COPY</button>
+      </div>
+
+      <!-- Mode picker -->
+      <div class="mp-mode-picker">
+        <div class="mp-mode-label">GAME MODE</div>
+        <div class="mp-mode-tabs">
+          <button class="mp-mode-tab active" data-mode="coop">
+            <div class="mp-mode-name">CO-OP OPS</div>
+            <div class="mp-mode-desc">Team up vs AI waves</div>
+          </button>
+          <button class="mp-mode-tab" data-mode="dm">
+            <div class="mp-mode-name">DEATHMATCH</div>
+            <div class="mp-mode-desc">First to 15 frags · 5min</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="mp-status" id="mpHostStatus">Waiting for connections...</div>
+      <div class="mp-roster">
+        <div class="mp-roster-label">SQUAD &middot; <span id="mpHostCount">1/8</span></div>
+        <div id="mpHostRoster"></div>
+      </div>
+      <div style="margin-top: 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button class="menu-btn" id="mpHostStart">DEPLOY SQUAD</button>
+        <button class="menu-btn-small" id="mpHostCancel">DISBAND</button>
+      </div>
+    </div>
+
+    <!-- Join lobby entry -->
+    <div id="mpJoinLobby" class="hidden">
+      <div class="settings-hint">Enter the 6-character code from your squad leader.</div>
+      <div class="mp-code-input-wrap">
+        <input type="text" id="mpJoinInput" maxlength="6" placeholder="------"
+               class="mp-code-input" autocomplete="off" autocapitalize="characters" spellcheck="false">
+      </div>
+      <div class="mp-status" id="mpJoinStatus"></div>
+      <div style="margin-top: 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button class="menu-btn" id="mpJoinConnect">CONNECT</button>
+        <button class="menu-btn-small" id="mpJoinCancel">BACK</button>
+      </div>
+    </div>
+
+    <!-- Joined waiting room -->
+    <div id="mpJoinedLobby" class="hidden">
+      <div class="settings-hint" id="mpJoinedHint">Connected. Waiting for squad leader to deploy.</div>
+      <div class="mp-roster">
+        <div class="mp-roster-label">SQUAD</div>
+        <div id="mpJoinedRoster"></div>
+      </div>
+      <div style="margin-top: 16px;">
+        <button class="menu-btn-small" id="mpJoinedLeave">LEAVE SQUAD</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MULTIPLAYER LOBBY END -->
 <div id="settingsMenu" class="menu-screen hidden">
   <div class="menu-content settings-content">
     <div class="game-title" style="font-size: clamp(28px, 5vw, 48px); letter-spacing: 4px;">SETTINGS</div>
@@ -1128,10 +1538,28 @@
   <div class="loading-bar"><div class="loading-fill" id="loadingFill"></div></div>
 </div>
 
+<!-- RESPAWN OVERLAY (DM mode) -->
+<div id="mpRespawn" class="mp-respawn">
+  <div class="mp-respawn-msg">ELIMINATED</div>
+  <div class="mp-respawn-killer" id="mpRespawnKiller">— BY OPERATOR —</div>
+  <div class="mp-respawn-timer" id="mpRespawnTimer">3</div>
+  <div class="mp-respawn-sub">// RESPAWNING //</div>
+</div>
+
 <!-- HUD -->
 <div id="hud">
   <div class="damage-overlay" id="damageOverlay"></div>
   <div class="muzzle-flash" id="muzzleFlash"></div>
+
+  <!-- Multiplayer squad HUD (top center) -->
+  <div class="mp-squad-hud" id="mpSquadHud"></div>
+  <!-- Floating nameplates layer for remote players -->
+  <div id="mpNameplates" style="position:absolute; inset:0; pointer-events:none; z-index:6;"></div>
+  <!-- Deathmatch HUD (top right) -->
+  <div class="mp-match-hud" id="mpMatchHud" style="display:none;">
+    <div class="mp-match-hud-frag"><span id="mpMatchFrags">0</span> / <span id="mpMatchLimit">15</span></div>
+    <div class="mp-match-hud-time" id="mpMatchTime">5:00</div>
+  </div>
 
   <!-- Sniper scope overlay -->
   <div class="scope-overlay" id="scopeOverlay">
@@ -1246,6 +1674,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 
 <script>
 /* =========================================================================
@@ -1803,14 +2232,32 @@ class Player {
     let closestHit = null;
     let closestDist = weapon.range;
 
-    for (const enemy of Game.enemies) {
-      if (enemy.dead) continue;
-      const hit = ray.intersectObject(enemy.hitMesh, false);
-      if (hit.length && hit[0].distance < closestDist) {
-        closestDist = hit[0].distance;
-        closestHit = { type: 'enemy', enemy, point: hit[0].point, distance: hit[0].distance, headshot: hit[0].point.y > enemy.position.y + 1.4 * enemy.scale };
+    // Skip enemy raycasts in DM mode (no AI enemies)
+    if (!(Net.enabled && Net.lobbyMode === 'dm')) {
+      for (const enemy of Game.enemies) {
+        if (enemy.dead) continue;
+        const hit = ray.intersectObject(enemy.hitMesh, false);
+        if (hit.length && hit[0].distance < closestDist) {
+          closestDist = hit[0].distance;
+          closestHit = { type: 'enemy', enemy, point: hit[0].point, distance: hit[0].distance, headshot: hit[0].point.y > enemy.position.y + 1.4 * enemy.scale };
+        }
       }
     }
+
+    // PvP raycast against remote players
+    if (Net.enabled && Net.lobbyMode === 'dm') {
+      for (const [pid, rp] of Object.entries(Net.remotePlayers)) {
+        if (rp.dead || !rp.hitMesh) continue;
+        const hit = ray.intersectObject(rp.hitMesh, false);
+        if (hit.length && hit[0].distance < closestDist) {
+          closestDist = hit[0].distance;
+          // Headshot: hit Y above ~1.85 (head region)
+          const headshot = hit[0].point.y > rp.position.y + 1.85;
+          closestHit = { type: 'player', remotePlayer: rp, targetId: pid, point: hit[0].point, distance: hit[0].distance, headshot };
+        }
+      }
+    }
+
     for (const obs of Game.obstacles) {
       const hit = ray.intersectObject(obs, false);
       if (hit.length && hit[0].distance < closestDist) {
@@ -1825,10 +2272,46 @@ class Player {
     if (closestHit) {
       if (closestHit.type === 'enemy') {
         const dmg = closestHit.headshot ? weapon.damage * 2.5 : weapon.damage;
-        closestHit.enemy.takeDamage(dmg, closestHit.headshot);
+        if (Net.enabled && Net.isPeer && Net.hostConn) {
+          const enemyIdx = Game.enemies.indexOf(closestHit.enemy);
+          if (enemyIdx >= 0) {
+            try {
+              Net.hostConn.send({
+                t: 'shotHit',
+                enemyIdx: enemyIdx,
+                dmg: dmg,
+                headshot: closestHit.headshot,
+              });
+            } catch(e) {}
+          }
+          Effects.bloodSplat(closestHit.point);
+          UI.showHitmarker(closestHit.headshot);
+          Audio.play('hit');
+        } else {
+          closestHit.enemy.takeDamage(dmg, closestHit.headshot);
+          Effects.bloodSplat(closestHit.point);
+          UI.showHitmarker(closestHit.headshot);
+          Audio.play('hit');
+        }
+      } else if (closestHit.type === 'player') {
+        // PvP hit
+        const dmg = closestHit.headshot ? weapon.damage * 2.5 : weapon.damage;
         Effects.bloodSplat(closestHit.point);
         UI.showHitmarker(closestHit.headshot);
         Audio.play('hit');
+        if (Net.isHost) {
+          // Host applies directly (we ARE the authority)
+          Net.applyPlayerHit(closestHit.targetId, dmg, closestHit.headshot, Net.myId);
+        } else if (Net.isPeer && Net.hostConn) {
+          try {
+            Net.hostConn.send({
+              t: 'playerHit',
+              targetId: closestHit.targetId,
+              dmg: dmg,
+              headshot: closestHit.headshot,
+            });
+          } catch(e) {}
+        }
       } else {
         Effects.impactSpark(closestHit.point, closestHit.normal);
       }
@@ -2592,6 +3075,14 @@ class Enemy {
   }
 
   update(dt) {
+    // In peer mode, host owns enemy AI — skip local update logic, just do visual decay
+    if (Net.enabled && Net.isPeer) {
+      if (this.hitFlash > 0) {
+        this.hitFlash -= dt;
+      }
+      return;
+    }
+
     if (this.dead) {
       this.fallProgress = Math.min(1, this.fallProgress + dt * 2.5);
       this.group.rotation.z = this.fallAxis * (Math.PI / 2) * this.fallProgress;
@@ -4258,6 +4749,1280 @@ const Settings = {
 };
 
 // ============================================================
+// REMOTE PLAYER (visual avatar of a teammate)
+// ============================================================
+class RemotePlayer {
+  constructor(id, name, color) {
+    this.id = id;
+    this.name = name || id.slice(0, 6).toUpperCase();
+    this.color = color || 0x4488ff;
+    this.position = new THREE.Vector3(0, 0, 0);
+    this.targetPosition = new THREE.Vector3(0, 0, 0);
+    this.yaw = 0;
+    this.pitch = 0;
+    this.targetYaw = 0;
+    this.health = 100;
+    this.maxHealth = 100;
+    this.dead = false;
+    this.weapon = 'rifle';
+    this.lastUpdate = performance.now();
+    this.bobTime = 0;
+    this.moving = false;
+    this.shootFlashTime = 0;
+    this.buildMesh();
+    this.buildNameplate();
+  }
+
+  buildMesh() {
+    this.group = new THREE.Group();
+    const s = 1.0;
+
+    // Use friendly blue/cyan palette to differentiate from enemies
+    const fatigueColor = 0x1a3050;
+    const vestColor = 0x2a4a70;
+    const skinColor = 0xc89878;
+    const helmetColor = 0x223040;
+    const accentColor = this.color;
+
+    // Belt
+    const belt = new THREE.Mesh(
+      new THREE.BoxGeometry(0.55 * s, 0.13 * s, 0.32 * s),
+      new THREE.MeshStandardMaterial({ color: 0x14110c, roughness: 0.85 })
+    );
+    belt.position.y = 0.95 * s;
+    belt.castShadow = true;
+    this.group.add(belt);
+    // Mid torso
+    const fatigueMat = new THREE.MeshStandardMaterial({ color: fatigueColor, roughness: 0.9 });
+    const midTorso = new THREE.Mesh(new THREE.BoxGeometry(0.52 * s, 0.35 * s, 0.3 * s), fatigueMat);
+    midTorso.position.y = 1.18 * s;
+    midTorso.castShadow = true;
+    this.group.add(midTorso);
+    // Vest
+    const vestMat = new THREE.MeshStandardMaterial({ color: vestColor, roughness: 0.7 });
+    const upTorso = new THREE.Mesh(new THREE.BoxGeometry(0.6 * s, 0.45 * s, 0.36 * s), vestMat);
+    upTorso.position.y = 1.55 * s;
+    upTorso.castShadow = true;
+    this.group.add(upTorso);
+
+    // Friend identifier band on chest
+    const bandMat = new THREE.MeshStandardMaterial({
+      color: accentColor, emissive: accentColor, emissiveIntensity: 0.6, roughness: 0.4
+    });
+    const band = new THREE.Mesh(new THREE.BoxGeometry(0.1 * s, 0.12 * s, 0.38 * s), bandMat);
+    band.position.set(-0.18 * s, 1.55 * s, 0.18 * s);
+    this.group.add(band);
+
+    // Vest pouches
+    const pouchMat = new THREE.MeshStandardMaterial({ color: 0x1a1a14, roughness: 0.85 });
+    for (let i = 0; i < 3; i++) {
+      const pouch = new THREE.Mesh(new THREE.BoxGeometry(0.14 * s, 0.12 * s, 0.06 * s), pouchMat);
+      pouch.position.set((i - 1) * 0.18 * s, 1.5 * s, 0.2 * s);
+      this.group.add(pouch);
+    }
+    // Pads
+    const padMat = new THREE.MeshStandardMaterial({ color: 0x1a1a14, roughness: 0.7 });
+    const padL = new THREE.Mesh(new THREE.BoxGeometry(0.22 * s, 0.18 * s, 0.32 * s), padMat);
+    padL.position.set(-0.36 * s, 1.7 * s, 0);
+    this.group.add(padL);
+    const padR = padL.clone();
+    padR.position.x = 0.36 * s;
+    this.group.add(padR);
+
+    // Neck + head
+    const skinMat = new THREE.MeshStandardMaterial({ color: skinColor, roughness: 0.6 });
+    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.08 * s, 0.09 * s, 0.12 * s, 8), skinMat);
+    neck.position.y = 1.84 * s;
+    this.group.add(neck);
+
+    const head = new THREE.Mesh(new THREE.BoxGeometry(0.25 * s, 0.32 * s, 0.28 * s), skinMat);
+    head.position.y = 2.04 * s;
+    head.castShadow = true;
+    this.group.add(head);
+
+    const jaw = new THREE.Mesh(new THREE.BoxGeometry(0.2 * s, 0.07 * s, 0.22 * s), skinMat);
+    jaw.position.set(0, 1.92 * s, 0.02 * s);
+    this.group.add(jaw);
+
+    // Helmet
+    const helmetMat = new THREE.MeshStandardMaterial({ color: helmetColor, roughness: 0.5 });
+    const helmet = new THREE.Mesh(
+      new THREE.SphereGeometry(0.18 * s, 12, 8, 0, Math.PI * 2, 0, Math.PI / 1.6),
+      helmetMat
+    );
+    helmet.position.y = 2.12 * s;
+    helmet.castShadow = true;
+    this.group.add(helmet);
+
+    // Friendly identifier — glowing green visor (vs enemy red)
+    const visorMat = new THREE.MeshStandardMaterial({
+      color: 0x0a4a1a, emissive: 0x00ff8c, emissiveIntensity: 1.0, roughness: 0.2
+    });
+    const visor = new THREE.Mesh(new THREE.BoxGeometry(0.22 * s, 0.06 * s, 0.04 * s), visorMat);
+    visor.position.set(0, 2.05 * s, 0.15 * s);
+    this.group.add(visor);
+
+    // Arms
+    const sleeveMat = new THREE.MeshStandardMaterial({ color: fatigueColor, roughness: 0.9 });
+    const gloveMat = new THREE.MeshStandardMaterial({ color: 0x141414, roughness: 0.95 });
+    this.armL = new THREE.Mesh(new THREE.BoxGeometry(0.14 * s, 0.4 * s, 0.16 * s), sleeveMat);
+    this.armL.position.set(-0.36 * s, 1.55 * s, 0);
+    this.armL.castShadow = true;
+    this.group.add(this.armL);
+    this.armR = new THREE.Mesh(new THREE.BoxGeometry(0.14 * s, 0.4 * s, 0.16 * s), sleeveMat);
+    this.armR.position.set(0.36 * s, 1.55 * s, 0);
+    this.armR.castShadow = true;
+    this.group.add(this.armR);
+    // Forearms
+    const fArmL = new THREE.Mesh(new THREE.BoxGeometry(0.13 * s, 0.36 * s, 0.15 * s), sleeveMat);
+    fArmL.position.set(-0.36 * s, 1.18 * s, 0.05 * s);
+    this.group.add(fArmL);
+    const fArmR = new THREE.Mesh(new THREE.BoxGeometry(0.13 * s, 0.36 * s, 0.15 * s), sleeveMat);
+    fArmR.position.set(0.36 * s, 1.18 * s, 0.05 * s);
+    this.group.add(fArmR);
+    // Hands
+    const handL = new THREE.Mesh(new THREE.BoxGeometry(0.12 * s, 0.13 * s, 0.14 * s), gloveMat);
+    handL.position.set(-0.36 * s, 0.97 * s, 0.06 * s);
+    this.group.add(handL);
+    const handR = new THREE.Mesh(new THREE.BoxGeometry(0.12 * s, 0.13 * s, 0.14 * s), gloveMat);
+    handR.position.set(0.36 * s, 0.97 * s, 0.06 * s);
+    this.group.add(handR);
+
+    // Legs
+    const pantsMat = new THREE.MeshStandardMaterial({ color: fatigueColor, roughness: 0.92 });
+    const bootMat = new THREE.MeshStandardMaterial({ color: 0x1a1410, roughness: 0.6 });
+    this.legL = new THREE.Mesh(new THREE.BoxGeometry(0.18 * s, 0.45 * s, 0.2 * s), pantsMat);
+    this.legL.position.set(-0.13 * s, 0.65 * s, 0);
+    this.legL.castShadow = true;
+    this.group.add(this.legL);
+    this.legR = new THREE.Mesh(new THREE.BoxGeometry(0.18 * s, 0.45 * s, 0.2 * s), pantsMat);
+    this.legR.position.set(0.13 * s, 0.65 * s, 0);
+    this.legR.castShadow = true;
+    this.group.add(this.legR);
+    const shinL = new THREE.Mesh(new THREE.BoxGeometry(0.16 * s, 0.35 * s, 0.18 * s), pantsMat);
+    shinL.position.set(-0.13 * s, 0.22 * s, 0);
+    this.group.add(shinL);
+    const shinR = new THREE.Mesh(new THREE.BoxGeometry(0.16 * s, 0.35 * s, 0.18 * s), pantsMat);
+    shinR.position.set(0.13 * s, 0.22 * s, 0);
+    this.group.add(shinR);
+    const bootL = new THREE.Mesh(new THREE.BoxGeometry(0.18 * s, 0.12 * s, 0.28 * s), bootMat);
+    bootL.position.set(-0.13 * s, 0.06 * s, 0.04 * s);
+    this.group.add(bootL);
+    const bootR = new THREE.Mesh(new THREE.BoxGeometry(0.18 * s, 0.12 * s, 0.28 * s), bootMat);
+    bootR.position.set(0.13 * s, 0.06 * s, 0.04 * s);
+    this.group.add(bootR);
+
+    // Gun
+    this.gun = new THREE.Group();
+    const gunBody = new THREE.Mesh(
+      new THREE.BoxGeometry(0.06, 0.08, 0.55),
+      new THREE.MeshStandardMaterial({ color: 0x111, roughness: 0.55, metalness: 0.6 })
+    );
+    this.gun.add(gunBody);
+    const gunBarrel = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.02, 0.02, 0.25, 6),
+      new THREE.MeshStandardMaterial({ color: 0x080808, metalness: 0.85 })
+    );
+    gunBarrel.rotation.x = Math.PI / 2;
+    gunBarrel.position.z = -0.4;
+    this.gun.add(gunBarrel);
+    this.gun.position.set(0.18, 1.35, 0.35);
+    this.group.add(this.gun);
+
+    // Muzzle flash (hidden by default)
+    this.muzzleFlash = new THREE.PointLight(0xffaa44, 0, 4, 2);
+    this.muzzleFlash.position.set(0.18, 1.35, 0.7);
+    this.group.add(this.muzzleFlash);
+
+    // Invisible hit collider for raycasts (PvP)
+    const hitGeo = new THREE.BoxGeometry(0.7, 2.25, 0.5);
+    const hitMat = new THREE.MeshBasicMaterial({ visible: false });
+    this.hitMesh = new THREE.Mesh(hitGeo, hitMat);
+    this.hitMesh.position.y = 1.12;
+    this.hitMesh.userData.remotePlayer = this;
+    this.group.add(this.hitMesh);
+
+    Game.scene.add(this.group);
+  }
+
+  buildNameplate() {
+    const el = document.createElement('div');
+    el.className = 'mp-nameplate-floating';
+    el.textContent = this.name;
+    this.nameplate = el;
+    document.getElementById('mpNameplates').appendChild(el);
+  }
+
+  applyState(s) {
+    // Smooth interpolation to incoming state
+    this.targetPosition.set(s.x, s.y, s.z);
+    this.targetYaw = s.yaw;
+    this.pitch = s.pitch;
+    if (typeof s.health === 'number') this.health = s.health;
+    if (typeof s.dead === 'boolean') this.dead = s.dead;
+    if (s.weapon) this.weapon = s.weapon;
+    this.moving = !!s.moving;
+    if (s.shooting) this.shootFlashTime = 0.06;
+    this.lastUpdate = performance.now();
+  }
+
+  update(dt) {
+    if (this.dead) {
+      this.group.visible = false;
+      this.nameplate.style.display = 'none';
+      return;
+    }
+    this.group.visible = true;
+
+    // Smoothly lerp position toward target
+    this.position.x += (this.targetPosition.x - this.position.x) * Math.min(1, dt * 12);
+    this.position.y += (this.targetPosition.y - this.position.y) * Math.min(1, dt * 12);
+    this.position.z += (this.targetPosition.z - this.position.z) * Math.min(1, dt * 12);
+
+    // Yaw — shortest-path interpolation
+    let dy = this.targetYaw - this.yaw;
+    while (dy > Math.PI) dy -= Math.PI * 2;
+    while (dy < -Math.PI) dy += Math.PI * 2;
+    this.yaw += dy * Math.min(1, dt * 14);
+
+    this.group.position.copy(this.position);
+    this.group.rotation.y = this.yaw;
+
+    // Walk animation
+    if (this.moving) {
+      this.bobTime += dt * 6;
+      this.legL.rotation.x = Math.sin(this.bobTime) * 0.35;
+      this.legR.rotation.x = -Math.sin(this.bobTime) * 0.35;
+      this.armL.rotation.x = -Math.sin(this.bobTime) * 0.25;
+    } else {
+      this.legL.rotation.x *= 0.85;
+      this.legR.rotation.x *= 0.85;
+      this.armL.rotation.x *= 0.85;
+    }
+
+    // Muzzle flash decay
+    if (this.shootFlashTime > 0) {
+      this.muzzleFlash.intensity = Math.min(2.5, this.shootFlashTime * 40);
+      this.shootFlashTime -= dt;
+    } else {
+      this.muzzleFlash.intensity = 0;
+    }
+
+    // Update floating nameplate
+    const screen = this.position.clone();
+    screen.y += 2.5;
+    screen.project(Game.camera);
+    if (screen.z < 1) {
+      const x = (screen.x * 0.5 + 0.5) * window.innerWidth;
+      const y = (-screen.y * 0.5 + 0.5) * window.innerHeight;
+      // Distance-based scale
+      const dist = this.position.distanceTo(Game.player.position);
+      const opacity = Math.max(0, Math.min(1, (40 - dist) / 30));
+      this.nameplate.style.display = opacity > 0.05 ? 'block' : 'none';
+      this.nameplate.style.left = x + 'px';
+      this.nameplate.style.top = y + 'px';
+      this.nameplate.style.opacity = opacity;
+      this.nameplate.textContent = `${this.name} · ${Math.max(0, Math.round(this.health))}HP`;
+    } else {
+      this.nameplate.style.display = 'none';
+    }
+  }
+
+  destroy() {
+    if (this.group) {
+      Game.scene.remove(this.group);
+      this.group.traverse(o => {
+        if (o.geometry) o.geometry.dispose();
+        if (o.material) {
+          if (Array.isArray(o.material)) o.material.forEach(m => m.dispose());
+          else o.material.dispose();
+        }
+      });
+    }
+    if (this.nameplate && this.nameplate.parentNode) {
+      this.nameplate.parentNode.removeChild(this.nameplate);
+    }
+  }
+}
+
+// ============================================================
+// NET — multiplayer via PeerJS
+// ============================================================
+const Net = {
+  // State
+  enabled: false,
+  isHost: false,
+  isPeer: false,           // true if joined as peer
+  peerObj: null,           // PeerJS instance
+  myId: null,              // our peer id
+  myCode: null,            // 6-char shareable code (host only)
+  myName: 'OPERATOR',      // local display name
+  hostConn: null,          // connection to host (peer mode)
+  peers: {},               // host: id -> { conn, name, lastInput, remote, frags, deaths }
+  remotePlayers: {},       // id -> RemotePlayer (visual avatar)
+  pendingHostStart: false,
+  squadHudTimer: 0,
+  lastInputSent: 0,
+  lastWorldSent: 0,
+
+  // Lobby + match
+  lobbyMode: 'coop',       // 'coop' or 'dm'
+  myFrags: 0,
+  myDeaths: 0,
+  matchFragLimit: 15,
+  matchEndTime: 0,
+  respawnAt: 0,            // timestamp when local player can respawn (dm only)
+
+  // Constants
+  PROTOCOL_VERSION: 2,     // bumped (PvP additions)
+  INPUT_HZ: 20,
+  WORLD_HZ: 15,
+  CODE_PREFIX: 'BLACKOUT',
+  MAX_PLAYERS: 8,
+  RESPAWN_DELAY: 3000,
+  MATCH_DURATION_MS: 5 * 60 * 1000,
+
+  // Generate a 6-char alphanumeric code (no ambiguous chars)
+  genCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no I, O, 0, 1
+    let code = '';
+    for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    return code;
+  },
+
+  isAvailable() {
+    return typeof window.Peer !== 'undefined';
+  },
+
+  generateName() {
+    const adjectives = ['SHADOW', 'GHOST', 'VIPER', 'WRAITH', 'STORM', 'RAVEN', 'BLADE', 'SURGE', 'PHANTOM', 'IRON'];
+    const nums = Math.floor(Math.random() * 90) + 10;
+    return adjectives[Math.floor(Math.random() * adjectives.length)] + nums;
+  },
+
+  // ===================== HOST =====================
+  async startHost() {
+    if (!this.isAvailable()) {
+      this.uiHostStatus('PeerJS not loaded. Check your connection.', 'error');
+      return;
+    }
+    this.cleanup();
+    this.isHost = true;
+    this.enabled = true;
+    this.myCode = this.genCode();
+    this.myName = this.generateName();
+    const fullId = `${this.CODE_PREFIX}-${this.myCode}`;
+
+    this.uiHostStatus('Connecting to broker...');
+    try {
+      this.peerObj = new Peer(fullId, {
+        debug: 0,
+        config: {
+          'iceServers': [
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:stun1.l.google.com:19302' }
+          ]
+        }
+      });
+    } catch(e) {
+      this.uiHostStatus('Failed to initialize: ' + e.message, 'error');
+      return;
+    }
+
+    this.peerObj.on('open', id => {
+      this.myId = id;
+      document.getElementById('mpHostCode').textContent = this.myCode;
+      this.uiHostStatus('Lobby open. Waiting for squad members...', 'success');
+      this.refreshHostRoster();
+    });
+
+    this.peerObj.on('connection', conn => {
+      this.handleIncomingPeer(conn);
+    });
+
+    this.peerObj.on('error', err => {
+      console.warn('PeerJS error:', err);
+      if (err.type === 'unavailable-id') {
+        // Code collision, retry with new code
+        this.uiHostStatus('Code conflict, retrying...');
+        setTimeout(() => this.startHost(), 600);
+      } else if (err.type === 'network' || err.type === 'server-error' || err.type === 'socket-error') {
+        this.uiHostStatus('Network error: broker unreachable.', 'error');
+      } else if (err.type === 'browser-incompatible') {
+        this.uiHostStatus('Browser does not support WebRTC.', 'error');
+      } else {
+        this.uiHostStatus('Error: ' + err.type, 'error');
+      }
+    });
+
+    this.peerObj.on('disconnected', () => {
+      this.uiHostStatus('Disconnected from broker.', 'error');
+    });
+  },
+
+  handleIncomingPeer(conn) {
+    if (Object.keys(this.peers).length >= 7) {
+      // Max 8 total (host + 7)
+      conn.on('open', () => {
+        conn.send({ t: 'kick', reason: 'Squad full (8/8)' });
+        setTimeout(() => conn.close(), 500);
+      });
+      return;
+    }
+    conn.on('open', () => {
+      const peerData = {
+        conn: conn,
+        name: 'OPERATOR',
+        joined: Date.now(),
+        lastInput: { x: 0, y: 1.7, z: 0, yaw: 0, pitch: 0, health: 100, dead: false, weapon: 'rifle' },
+        ping: 0,
+        lastPingTime: 0,
+        frags: 0,
+        deaths: 0,
+      };
+      this.peers[conn.peer] = peerData;
+      // Send welcome with version, host info, mode
+      conn.send({
+        t: 'welcome',
+        v: this.PROTOCOL_VERSION,
+        hostId: this.myId,
+        hostName: this.myName,
+        mode: this.lobbyMode,
+        squad: this.getRoster(),
+      });
+      this.refreshHostRoster();
+      this.uiHostStatus(`${Object.keys(this.peers).length + 1}/8 members connected.`, 'success');
+    });
+    conn.on('data', data => this.onHostReceiveFromPeer(conn.peer, data));
+    conn.on('close', () => this.onPeerDisconnect(conn.peer));
+    conn.on('error', err => {
+      console.warn('Conn error:', err);
+      this.onPeerDisconnect(conn.peer);
+    });
+  },
+
+  onPeerDisconnect(peerId) {
+    if (this.peers[peerId]) {
+      const name = this.peers[peerId].name;
+      delete this.peers[peerId];
+      this.removeRemotePlayer(peerId);
+      this.refreshHostRoster();
+      // Notify other peers
+      this.broadcast({ t: 'leave', id: peerId, name }, peerId);
+      this.uiHostStatus(`${name} left the squad.`, '');
+    }
+  },
+
+  onHostReceiveFromPeer(peerId, msg) {
+    const peer = this.peers[peerId];
+    if (!peer) return;
+    switch (msg.t) {
+      case 'hello':
+        peer.name = (msg.name || 'OPERATOR').toString().slice(0, 16).toUpperCase();
+        // Echo updated roster to all
+        this.broadcast({ t: 'roster', squad: this.getRoster() });
+        this.refreshHostRoster();
+        break;
+      case 'input':
+        peer.lastInput = msg.s;
+        // Spawn remote avatar if not present
+        if (!this.remotePlayers[peerId] && Game.state === 'playing') {
+          this.remotePlayers[peerId] = new RemotePlayer(peerId, peer.name, 0x00ff8c);
+        }
+        if (this.remotePlayers[peerId]) {
+          this.remotePlayers[peerId].applyState(msg.s);
+        }
+        // Forward to other peers
+        this.broadcast({ t: 'remoteState', id: peerId, name: peer.name, s: msg.s }, peerId);
+        break;
+      case 'shotHit':
+        // Peer claims a hit on AI enemy — apply to local enemy
+        this.applyShotHit(msg.enemyIdx, msg.dmg, msg.headshot, peerId);
+        break;
+      case 'playerHit':
+        // PvP: peer claims a hit on another player (or host)
+        this.applyPlayerHit(msg.targetId, msg.dmg, msg.headshot, peerId);
+        break;
+      case 'respawn':
+        // Peer reports they have respawned (DM mode)
+        if (peer.lastInput) {
+          peer.lastInput.dead = false;
+          peer.lastInput.health = 100;
+        }
+        break;
+      case 'pong':
+        if (peer.lastPingTime) {
+          peer.ping = performance.now() - peer.lastPingTime;
+        }
+        break;
+      case 'chat':
+        this.broadcast({ t: 'chat', from: peer.name, text: msg.text });
+        UI.addKill && UI.addKill(`[${peer.name}] ${msg.text}`, '#00d9ff');
+        break;
+    }
+  },
+
+  // ===================== JOIN (PEER) =====================
+  async startJoin(code) {
+    if (!this.isAvailable()) {
+      this.uiJoinStatus('PeerJS not loaded.', 'error');
+      return;
+    }
+    code = (code || '').toUpperCase().trim();
+    if (code.length !== 6) {
+      this.uiJoinStatus('Enter a 6-character code.', 'error');
+      return;
+    }
+    this.cleanup();
+    this.isPeer = true;
+    this.enabled = true;
+    this.myName = this.generateName();
+    this.myCode = null;
+
+    this.uiJoinStatus('Connecting to broker...');
+    try {
+      this.peerObj = new Peer(undefined, {
+        debug: 0,
+        config: {
+          'iceServers': [
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:stun1.l.google.com:19302' }
+          ]
+        }
+      });
+    } catch(e) {
+      this.uiJoinStatus('Failed to initialize: ' + e.message, 'error');
+      return;
+    }
+
+    this.peerObj.on('open', myId => {
+      this.myId = myId;
+      const hostId = `${this.CODE_PREFIX}-${code}`;
+      this.uiJoinStatus('Connecting to squad ' + code + '...');
+      const conn = this.peerObj.connect(hostId, { reliable: true });
+      this.hostConn = conn;
+      let opened = false;
+      const timer = setTimeout(() => {
+        if (!opened) {
+          this.uiJoinStatus('Squad code not found or unreachable.', 'error');
+          this.cleanup();
+        }
+      }, 8000);
+      conn.on('open', () => {
+        opened = true;
+        clearTimeout(timer);
+        // Send hello with our name
+        conn.send({ t: 'hello', name: this.myName });
+        this.uiJoinStatus('Connected. Waiting for deploy.', 'success');
+        // Switch to joined-lobby UI
+        document.getElementById('mpJoinLobby').classList.add('hidden');
+        document.getElementById('mpJoinedLobby').classList.remove('hidden');
+        this.refreshJoinedRoster([{ name: 'HOST', isHost: true }, { name: this.myName + ' (YOU)', isYou: true }]);
+        // Begin sending inputs immediately
+      });
+      conn.on('data', data => this.onPeerReceiveFromHost(data));
+      conn.on('close', () => {
+        if (!opened) {
+          clearTimeout(timer);
+          this.uiJoinStatus('Could not connect to squad.', 'error');
+        } else {
+          this.onHostDisconnect();
+        }
+      });
+      conn.on('error', err => {
+        console.warn('Conn error:', err);
+        this.uiJoinStatus('Connection error.', 'error');
+      });
+    });
+
+    this.peerObj.on('error', err => {
+      console.warn('PeerJS error:', err);
+      if (err.type === 'peer-unavailable') {
+        this.uiJoinStatus('Squad code not found.', 'error');
+      } else if (err.type === 'network' || err.type === 'server-error') {
+        this.uiJoinStatus('Network error: broker unreachable.', 'error');
+      } else {
+        this.uiJoinStatus('Error: ' + err.type, 'error');
+      }
+    });
+  },
+
+  onPeerReceiveFromHost(msg) {
+    switch (msg.t) {
+      case 'welcome':
+        if (msg.v !== this.PROTOCOL_VERSION) {
+          this.uiJoinStatus('Version mismatch with squad. Both sides need the latest version.', 'error');
+          this.leave();
+          return;
+        }
+        this.lobbyMode = msg.mode || 'coop';
+        this.refreshJoinedRoster(msg.squad);
+        this.updateJoinedHint();
+        break;
+      case 'roster':
+        this.refreshJoinedRoster(msg.squad);
+        break;
+      case 'modeChange':
+        this.lobbyMode = msg.mode;
+        this.updateJoinedHint();
+        break;
+      case 'kick':
+        this.uiJoinStatus('Kicked: ' + (msg.reason || 'unknown'), 'error');
+        this.leave();
+        break;
+      case 'startGame':
+        Game.netSeed = msg.seed;
+        Game.netWeather = msg.weather;
+        this.lobbyMode = msg.mode || 'coop';
+        this.matchEndTime = msg.matchEndTime || 0;
+        this.myFrags = 0;
+        this.myDeaths = 0;
+        document.getElementById('mpJoinedLobby').classList.add('hidden');
+        document.getElementById('mpMenu').classList.add('hidden');
+        if (this.lobbyMode === 'dm') {
+          startGameDeathmatchAsPeer();
+        } else {
+          startGameAsPeer();
+        }
+        break;
+      case 'world':
+        this.applyWorldSnapshot(msg);
+        break;
+      case 'remoteState':
+        // Another peer's state forwarded by host
+        if (msg.id !== this.myId) {
+          if (!this.remotePlayers[msg.id] && Game.state === 'playing') {
+            this.remotePlayers[msg.id] = new RemotePlayer(msg.id, msg.name, 0x00ff8c);
+          }
+          if (this.remotePlayers[msg.id]) this.remotePlayers[msg.id].applyState(msg.s);
+        }
+        break;
+      case 'leave':
+        this.removeRemotePlayer(msg.id);
+        UI.addKill && UI.addKill(`${msg.name || 'OPERATOR'} disconnected`, '#ff6666');
+        break;
+      case 'youDied':
+        // Peer was fragged in DM
+        if (Game.player) {
+          Game.player.health = 0;
+          Game.state = 'dead';
+        }
+        this.myDeaths++;
+        this.respawnAt = msg.respawnAt || (performance.now() + this.RESPAWN_DELAY);
+        UI.addKill && UI.addKill(`KIA — ${msg.killer}${msg.headshot ? ' (HS)' : ''}`, '#ff6666');
+        // Hide death menu — we'll auto-respawn
+        document.getElementById('gameOverMenu').classList.add('hidden');
+        break;
+      case 'damaged':
+        if (Game.player && Game.state === 'playing') {
+          Game.player.health = msg.hp;
+          Game.player.lastDamageTime = Game.clock.getElapsedTime();
+          UI.update();
+          UI.flashDamage && UI.flashDamage();
+        }
+        break;
+      case 'playerRespawn':
+        // Some other player respawned (or it's us)
+        if (msg.id === this.myId && Game.player) {
+          Game.player.position.set(msg.x, msg.y, msg.z);
+          Game.player.health = Game.player.maxHealth;
+          Game.state = 'playing';
+        } else if (this.remotePlayers[msg.id]) {
+          this.remotePlayers[msg.id].targetPosition.set(msg.x, msg.y, msg.z);
+          this.remotePlayers[msg.id].dead = false;
+          this.remotePlayers[msg.id].health = 100;
+        }
+        break;
+      case 'frag':
+        UI.addKill && UI.addKill(`${msg.killer} → ${msg.victim}${msg.headshot ? ' (HS)' : ''}`, '#ffaa44');
+        break;
+      case 'scores':
+        Net.lastScores = msg.scores;
+        // Update local frag count
+        if (msg.scores) {
+          const me = msg.scores.find(s => s.id === Net.myId);
+          if (me) {
+            Net.myFrags = me.frags;
+            Net.myDeaths = me.deaths;
+          }
+        }
+        break;
+      case 'matchEnd':
+        Net.handleMatchEnd(msg.winner, msg.scores);
+        break;
+      case 'chat':
+        UI.addKill && UI.addKill(`[${msg.from}] ${msg.text}`, '#00d9ff');
+        break;
+      case 'ping':
+        this.hostConn.send({ t: 'pong' });
+        break;
+    }
+  },
+
+  onHostDisconnect() {
+    if (Game.state === 'playing') {
+      UI.addKill && UI.addKill('SQUAD LEADER DISCONNECTED', '#ff6666');
+    }
+    this.uiJoinStatus('Squad leader disconnected.', 'error');
+    this.cleanup();
+  },
+
+  // ===================== HOST GAME LOOP =====================
+  hostStartGame() {
+    if (!this.isHost) return;
+    if (Object.keys(this.peers).length === 0 && this.lobbyMode === 'dm') {
+      this.uiHostStatus('Deathmatch needs at least 2 players.', 'error');
+      return;
+    }
+    // Generate shared seed
+    const seed = Math.floor(Math.random() * 1000000);
+    Game.netSeed = seed;
+    // Reset frags/deaths
+    this.myFrags = 0;
+    this.myDeaths = 0;
+    Object.values(this.peers).forEach(p => { p.frags = 0; p.deaths = 0; });
+    this.matchEndTime = (this.lobbyMode === 'dm') ? performance.now() + this.MATCH_DURATION_MS : 0;
+    this.respawnAt = 0;
+    // Broadcast start
+    this.broadcast({
+      t: 'startGame',
+      seed: seed,
+      weather: Game.weather || null,
+      mode: this.lobbyMode,
+      matchEndTime: this.matchEndTime,
+    });
+    document.getElementById('mpHostLobby').classList.add('hidden');
+    document.getElementById('mpMenu').classList.add('hidden');
+    if (this.lobbyMode === 'dm') {
+      startGameDeathmatch();
+    } else {
+      startGame();
+    }
+  },
+
+  // Periodic host: send world snapshots to all peers
+  hostBroadcastWorld() {
+    if (!this.isHost || Game.state !== 'playing') return;
+    const now = performance.now();
+    if (now - this.lastWorldSent < 1000 / this.WORLD_HZ) return;
+    this.lastWorldSent = now;
+    // Build snapshot
+    const snap = {
+      t: 'world',
+      tick: Math.floor(now),
+      mode: this.lobbyMode,
+      // Host player state
+      host: {
+        id: this.myId,
+        name: this.myName,
+        x: Game.player.position.x,
+        y: Game.player.position.y,
+        z: Game.player.position.z,
+        yaw: Game.player.yaw,
+        pitch: Game.player.pitch,
+        health: Game.player.health,
+        dead: Game.player.health <= 0,
+        weapon: Game.player.currentWeapon,
+        moving: (Math.abs(Game.player.velocity.x) + Math.abs(Game.player.velocity.z)) > 0.5,
+      },
+      // Compact enemies array (only in coop mode)
+      enemies: this.lobbyMode === 'coop' ? Game.enemies.filter(e => !e.dead).map((e, i) => ({
+        i: i,
+        t: e.type,
+        x: e.position.x, y: e.position.y, z: e.position.z,
+        h: Math.round(e.health),
+      })) : [],
+      // All peer states (for cross-peer visibility in DM)
+      peers: Object.entries(this.peers).map(([pid, p]) => ({
+        id: pid,
+        name: p.name,
+        ...p.lastInput,
+        frags: p.frags || 0,
+        deaths: p.deaths || 0,
+      })),
+      // Pickups
+      pickups: Game.pickups.map(p => ({
+        x: p.position.x, y: p.position.y, z: p.position.z,
+        t: p.type,
+      })),
+      wave: Game.wave,
+      score: Game.score,
+      matchEndTime: this.matchEndTime,
+    };
+    this.broadcast(snap);
+  },
+
+  // ===================== PEER GAME LOOP =====================
+  peerSendInput() {
+    if (!this.isPeer || !this.hostConn || !Game.player) return;
+    const now = performance.now();
+    if (now - this.lastInputSent < 1000 / this.INPUT_HZ) return;
+    this.lastInputSent = now;
+    try {
+      this.hostConn.send({
+        t: 'input',
+        s: {
+          x: Game.player.position.x,
+          y: Game.player.position.y,
+          z: Game.player.position.z,
+          yaw: Game.player.yaw,
+          pitch: Game.player.pitch,
+          health: Game.player.health,
+          dead: Game.state === 'dead',
+          weapon: Game.player.currentWeapon,
+          moving: Game.player.velocity ?
+            (Math.abs(Game.player.velocity.x) + Math.abs(Game.player.velocity.z)) > 0.5 : false,
+          shooting: Input.mouseDown || (MobileControls && MobileControls.firing),
+        }
+      });
+    } catch(e) { /* ignore */ }
+  },
+
+  applyWorldSnapshot(snap) {
+    if (!this.isPeer) return;
+    if (snap.mode) this.lobbyMode = snap.mode;
+    if (snap.matchEndTime) this.matchEndTime = snap.matchEndTime;
+
+    // Apply host player as a remote
+    if (snap.host && snap.host.id) {
+      if (!this.remotePlayers[snap.host.id] && Game.state === 'playing') {
+        this.remotePlayers[snap.host.id] = new RemotePlayer(snap.host.id, snap.host.name || 'HOST', 0x00d9ff);
+      }
+      const rp = this.remotePlayers[snap.host.id];
+      if (rp) rp.applyState(snap.host);
+    }
+
+    // Apply other peers' states (for cross-peer visibility)
+    if (snap.peers) {
+      snap.peers.forEach(p => {
+        if (p.id === this.myId) return; // skip self
+        if (!this.remotePlayers[p.id] && Game.state === 'playing') {
+          this.remotePlayers[p.id] = new RemotePlayer(p.id, p.name, 0x00ff8c);
+        }
+        const rp = this.remotePlayers[p.id];
+        if (rp) rp.applyState(p);
+      });
+      // Remove disconnected peers
+      const seen = new Set([snap.host.id, ...snap.peers.map(p => p.id)]);
+      Object.keys(this.remotePlayers).forEach(id => {
+        if (!seen.has(id)) this.removeRemotePlayer(id);
+      });
+    }
+
+    // Sync enemies (peer is read-only, only in coop mode)
+    if (snap.enemies && this.lobbyMode === 'coop') {
+      const seen = new Set();
+      snap.enemies.forEach(es => {
+        let e = Game.enemies[es.i];
+        if (!e) {
+          Game.enemies[es.i] = new Enemy(new THREE.Vector3(es.x, es.y, es.z), es.t);
+          e = Game.enemies[es.i];
+        } else if (e.dead) {
+          e.dead = false;
+          e.health = es.h;
+          if (e.group) {
+            e.group.visible = true;
+            if (!Game.scene.children.includes(e.group)) {
+              Game.scene.add(e.group);
+            }
+          }
+        }
+        if (e) {
+          e.position.set(es.x, es.y, es.z);
+          if (e.group) e.group.position.copy(e.position);
+          e.health = es.h;
+          seen.add(es.i);
+        }
+      });
+      Game.enemies.forEach((e, i) => {
+        if (e && !e.dead && !seen.has(i)) {
+          e.dead = true;
+          if (e.group) e.group.visible = false;
+        }
+      });
+    }
+
+    Game.wave = snap.wave;
+    Game.score = snap.score;
+    UI.update();
+  },
+
+  applyShotHit(enemyIdx, dmg, headshot, fromPeerId) {
+    // Host applies a hit reported by a peer
+    const e = Game.enemies[enemyIdx];
+    if (!e || e.dead) return;
+    e.takeDamage(dmg, headshot);
+    if (e.dead) {
+      const peer = this.peers[fromPeerId];
+      if (peer) {
+        UI.addKill && UI.addKill(`${peer.name} eliminated ${e.type.toUpperCase()}`, '#00ff8c');
+      }
+    }
+  },
+
+  applyPlayerHit(targetId, dmg, headshot, fromPeerId) {
+    // PvP hit: apply to either the host (us) or another peer
+    if (this.lobbyMode !== 'dm') return;
+
+    const isFromHost = (fromPeerId === this.myId);
+    const attacker = isFromHost ? null : this.peers[fromPeerId];
+    const attackerName = isFromHost ? this.myName : (attacker ? attacker.name : 'OPERATOR');
+
+    if (targetId === this.myId) {
+      // Host is the target
+      if (Game.state !== 'playing' || !Game.player) return;
+      if (Game.player.health <= 0) return;
+      // Don't damage self
+      if (isFromHost) return;
+      Game.player.takeDamage(dmg, new THREE.Vector3());
+      if (Game.player.health <= 0) {
+        if (attacker) attacker.frags = (attacker.frags || 0) + 1;
+        this.myDeaths++;
+        UI.addKill && UI.addKill(`${attackerName} → ${this.myName}${headshot ? ' (HS)' : ''}`, '#ff6666');
+        this.broadcast({ t: 'frag', killer: attackerName, victim: this.myName, headshot });
+        this.broadcast({ t: 'scores', scores: this.getScores() });
+        this.checkMatchEnd();
+        this.scheduleHostRespawn();
+      }
+    } else {
+      // Target is another peer
+      const target = this.peers[targetId];
+      if (!target) return;
+      if (target.lastInput.dead) return;
+      // Don't damage self
+      if (fromPeerId === targetId) return;
+      target.lastInput.health = (target.lastInput.health || 100) - dmg;
+      if (target.lastInput.health <= 0) {
+        target.lastInput.dead = true;
+        target.lastInput.health = 0;
+        target.deaths = (target.deaths || 0) + 1;
+        if (isFromHost) {
+          this.myFrags++;
+        } else if (attacker) {
+          attacker.frags = (attacker.frags || 0) + 1;
+        }
+        UI.addKill && UI.addKill(`${attackerName} → ${target.name}${headshot ? ' (HS)' : ''}`, '#ff6666');
+        // Tell the victim they died
+        try {
+          target.conn.send({
+            t: 'youDied',
+            killer: attackerName,
+            headshot: headshot,
+            respawnAt: performance.now() + this.RESPAWN_DELAY,
+          });
+        } catch(e) {}
+        this.broadcast({ t: 'frag', killer: attackerName, victim: target.name, headshot });
+        this.broadcast({ t: 'scores', scores: this.getScores() });
+        this.checkMatchEnd();
+      } else {
+        // Just damage
+        try {
+          target.conn.send({ t: 'damaged', dmg, fromName: attackerName, hp: target.lastInput.health });
+        } catch(e) {}
+      }
+    }
+  },
+
+  scheduleHostRespawn() {
+    if (this.lobbyMode !== 'dm') return;
+    this.respawnAt = performance.now() + this.RESPAWN_DELAY;
+  },
+
+  hostDoRespawnIfReady() {
+    if (this.lobbyMode !== 'dm' || !this.isHost) return;
+    if (!this.respawnAt) return;
+    if (performance.now() < this.respawnAt) return;
+    if (Game.state !== 'dead' || !Game.player) return;
+    // Respawn host
+    const sp = this.randomSpawnPoint();
+    Game.player.position.copy(sp);
+    Game.player.velocity.set(0, 0, 0);
+    Game.player.health = Game.player.maxHealth;
+    Game.player.armor = 50;
+    Game.state = 'playing';
+    this.respawnAt = 0;
+    UI.update();
+    UI.show();
+    document.getElementById('mpRespawn').classList.remove('show');
+    this.broadcast({ t: 'playerRespawn', id: this.myId, x: sp.x, y: sp.y, z: sp.z });
+  },
+
+  getScores() {
+    const scores = [
+      { id: this.myId, name: this.myName, frags: this.myFrags || 0, deaths: this.myDeaths || 0, isHost: true },
+    ];
+    Object.entries(this.peers).forEach(([pid, p]) => {
+      scores.push({ id: pid, name: p.name, frags: p.frags || 0, deaths: p.deaths || 0 });
+    });
+    scores.sort((a, b) => b.frags - a.frags || a.deaths - b.deaths);
+    return scores;
+  },
+
+  checkMatchEnd() {
+    if (this.lobbyMode !== 'dm' || !this.isHost) return;
+    const scores = this.getScores();
+    const top = scores[0];
+    if (top && top.frags >= this.matchFragLimit) {
+      this.broadcast({ t: 'matchEnd', winner: top.name, scores });
+      // Show locally too
+      Net.handleMatchEnd(top.name, scores);
+    } else if (this.matchEndTime && performance.now() >= this.matchEndTime) {
+      this.broadcast({ t: 'matchEnd', winner: top ? top.name : '—', scores });
+      Net.handleMatchEnd(top ? top.name : '—', scores);
+    }
+  },
+
+  handleMatchEnd(winner, scores) {
+    Game.state = 'finished';
+    document.getElementById('victoryMenu').classList.remove('hidden');
+    const root = document.getElementById('victoryMenu').querySelector('.menu-content');
+    if (root) {
+      root.innerHTML = `
+        <div class="overlay-message" style="color:#ffce00;">MATCH OVER</div>
+        <div style="color:#888; letter-spacing:4px; margin-bottom:12px; font-size:12px;">// WINNER: ${winner} //</div>
+        <div class="menu-divider"></div>
+        <div style="margin: 14px 0; max-width: 360px; margin: 14px auto;">
+          ${scores.map((s, i) => `
+            <div class="mp-roster-row ${s.isHost ? 'host' : 'peer'}" style="background: ${i === 0 ? 'rgba(255,206,0,0.15)' : 'rgba(255,255,255,0.04)'};">
+              <span class="mp-roster-name">${i+1}. ${s.name}</span>
+              <span class="mp-roster-tag">${s.frags} F · ${s.deaths} D</span>
+            </div>
+          `).join('')}
+        </div>
+        <button class="menu-btn" onclick="Net.leaveToMenu()">RETURN TO MENU</button>
+      `;
+    }
+    if (document.exitPointerLock && !Device.isMobile) document.exitPointerLock();
+  },
+
+  leaveToMenu() {
+    this.cleanup();
+    returnToMenu();
+  },
+
+  randomSpawnPoint() {
+    // 8 spawn rings around the city
+    const points = [
+      [-72, 1.7, -72], [72, 1.7, -72], [-72, 1.7, 72], [72, 1.7, 72],
+      [0, 1.7, -85], [0, 1.7, 85], [-85, 1.7, 0], [85, 1.7, 0],
+    ];
+    const p = points[Math.floor(Math.random() * points.length)];
+    return new THREE.Vector3(p[0], p[1], p[2]);
+  },
+
+  // ===================== UTILITIES =====================
+  broadcast(msg, exceptId) {
+    Object.entries(this.peers).forEach(([pid, peer]) => {
+      if (pid === exceptId) return;
+      if (peer.conn && peer.conn.open) {
+        try { peer.conn.send(msg); } catch(e) {}
+      }
+    });
+  },
+
+  getRoster() {
+    const list = [{ name: this.myName, isHost: true, isYou: this.isHost, ping: 0 }];
+    Object.entries(this.peers).forEach(([pid, p]) => {
+      list.push({ id: pid, name: p.name, ping: Math.round(p.ping) });
+    });
+    return list;
+  },
+
+  refreshHostRoster() {
+    const root = document.getElementById('mpHostRoster');
+    if (!root) return;
+    const list = this.getRoster();
+    root.innerHTML = list.map(p => `
+      <div class="mp-roster-row ${p.isHost ? 'host' : 'peer'}">
+        <span class="mp-roster-name">${p.name}</span>
+        <span class="mp-roster-tag">${p.isHost ? 'HOST · YOU' : 'OPERATOR'}</span>
+        ${p.ping !== undefined && !p.isHost ? `<span class="mp-roster-ping">${p.ping}ms</span>` : ''}
+      </div>
+    `).join('');
+    const cnt = document.getElementById('mpHostCount');
+    if (cnt) cnt.textContent = `${list.length}/${this.MAX_PLAYERS}`;
+  },
+
+  updateJoinedHint() {
+    const el = document.getElementById('mpJoinedHint');
+    if (!el) return;
+    const modeLabel = this.lobbyMode === 'dm' ? 'DEATHMATCH' : 'CO-OP';
+    el.textContent = `Connected — ${modeLabel}. Waiting for squad leader to deploy.`;
+  },
+
+  refreshJoinedRoster(squad) {
+    const root = document.getElementById('mpJoinedRoster');
+    if (!root || !squad) return;
+    root.innerHTML = squad.map(p => `
+      <div class="mp-roster-row ${p.isHost ? 'host' : (p.isYou ? 'you' : 'peer')}">
+        <span class="mp-roster-name">${p.name}</span>
+        <span class="mp-roster-tag">${p.isHost ? 'HOST' : (p.isYou ? 'YOU' : 'OPERATOR')}</span>
+      </div>
+    `).join('');
+  },
+
+  uiHostStatus(text, kind) {
+    const el = document.getElementById('mpHostStatus');
+    if (!el) return;
+    el.textContent = text;
+    el.className = 'mp-status' + (kind ? ' ' + kind : '');
+  },
+  uiJoinStatus(text, kind) {
+    const el = document.getElementById('mpJoinStatus');
+    if (!el) return;
+    el.textContent = text;
+    el.className = 'mp-status' + (kind ? ' ' + kind : '');
+  },
+
+  removeRemotePlayer(id) {
+    if (this.remotePlayers[id]) {
+      this.remotePlayers[id].destroy();
+      delete this.remotePlayers[id];
+    }
+  },
+
+  // Update squad HUD (top center)
+  updateSquadHud() {
+    const hud = document.getElementById('mpSquadHud');
+    if (!hud) return;
+    if (!this.enabled || Game.state !== 'playing') {
+      hud.innerHTML = '';
+      return;
+    }
+    const players = [];
+    if (this.isHost) {
+      Object.entries(this.peers).forEach(([pid, p]) => {
+        const last = p.lastInput || {};
+        players.push({ name: p.name, hp: last.health || 0, dead: last.dead });
+      });
+    }
+    Object.values(this.remotePlayers).forEach(rp => {
+      if (this.isHost) return; // already added above by lastInput
+      players.push({ name: rp.name, hp: rp.health, dead: rp.dead });
+    });
+    hud.innerHTML = players.map(p => `
+      <div class="mp-mate ${p.dead ? 'dead' : ''}">
+        <span class="mp-mate-name">${p.name}</span>
+        <span class="mp-mate-hp">${p.dead ? 'KIA' : Math.max(0, Math.round(p.hp)) + 'HP'}</span>
+      </div>
+    `).join('');
+  },
+
+  tick(dt) {
+    if (!this.enabled) return;
+    if (this.isHost) {
+      this.hostBroadcastWorld();
+      this.hostDoRespawnIfReady();
+      // Periodic match end check
+      if (this.lobbyMode === 'dm' && this.matchEndTime && performance.now() >= this.matchEndTime) {
+        this.checkMatchEnd();
+      }
+    }
+    if (this.isPeer) {
+      this.peerSendInput();
+      // Check respawn (DM peer)
+      if (this.lobbyMode === 'dm' && this.respawnAt && performance.now() >= this.respawnAt) {
+        this.peerRespawn();
+      }
+    }
+    Object.values(this.remotePlayers).forEach(rp => rp.update(dt));
+    this.squadHudTimer += dt;
+    if (this.squadHudTimer > 0.25) {
+      this.squadHudTimer = 0;
+      this.updateSquadHud();
+      this.updateMatchHud();
+    }
+    this.updateRespawnOverlay();
+  },
+
+  updateMatchHud() {
+    if (!this.enabled || this.lobbyMode !== 'dm') return;
+    const fragsEl = document.getElementById('mpMatchFrags');
+    const timeEl = document.getElementById('mpMatchTime');
+    if (!fragsEl || !timeEl) return;
+    // Local player frags
+    const myFrags = this.isHost ? this.myFrags : this.myFrags;
+    fragsEl.textContent = myFrags;
+    // Time remaining
+    if (this.matchEndTime) {
+      const remaining = Math.max(0, this.matchEndTime - performance.now());
+      const m = Math.floor(remaining / 60000);
+      const s = Math.floor((remaining % 60000) / 1000).toString().padStart(2, '0');
+      timeEl.textContent = `${m}:${s}`;
+    }
+  },
+
+  updateRespawnOverlay() {
+    if (this.lobbyMode !== 'dm') return;
+    const overlay = document.getElementById('mpRespawn');
+    if (!overlay) return;
+    const isDead = (this.isHost && Game.player && Game.player.health <= 0) ||
+                   (this.isPeer && Game.state === 'dead');
+    if (isDead && this.respawnAt) {
+      const remaining = Math.max(0, this.respawnAt - performance.now());
+      const seconds = Math.ceil(remaining / 1000);
+      document.getElementById('mpRespawnTimer').textContent = seconds;
+      overlay.classList.add('show');
+    } else {
+      overlay.classList.remove('show');
+    }
+  },
+
+  peerRespawn() {
+    if (!this.isPeer || !Game.player) return;
+    const sp = this.randomSpawnPoint();
+    Game.player.position.copy(sp);
+    Game.player.velocity.set(0, 0, 0);
+    Game.player.health = Game.player.maxHealth;
+    Game.player.armor = 50;
+    Game.state = 'playing';
+    this.respawnAt = 0;
+    UI.update();
+    UI.show();
+    document.getElementById('mpRespawn').classList.remove('show');
+    document.getElementById('gameOverMenu').classList.add('hidden');
+    if (this.hostConn) {
+      try { this.hostConn.send({ t: 'respawn', x: sp.x, y: sp.y, z: sp.z }); } catch(e) {}
+    }
+  },
+
+  leave() {
+    this.cleanup();
+    document.getElementById('mpJoinedLobby').classList.add('hidden');
+    document.getElementById('mpJoinLobby').classList.add('hidden');
+    document.getElementById('mpHostLobby').classList.add('hidden');
+    document.getElementById('mpLanding').classList.remove('hidden');
+  },
+
+  cleanup() {
+    Object.keys(this.remotePlayers).forEach(id => this.removeRemotePlayer(id));
+    this.remotePlayers = {};
+    Object.values(this.peers).forEach(p => {
+      try { p.conn && p.conn.close(); } catch(e) {}
+    });
+    this.peers = {};
+    if (this.hostConn) {
+      try { this.hostConn.close(); } catch(e) {}
+      this.hostConn = null;
+    }
+    if (this.peerObj) {
+      try { this.peerObj.destroy(); } catch(e) {}
+      this.peerObj = null;
+    }
+    this.enabled = false;
+    this.isHost = false;
+    this.isPeer = false;
+    this.myId = null;
+    this.myCode = null;
+    this.lobbyMode = 'coop';
+    this.myFrags = 0;
+    this.myDeaths = 0;
+    this.matchEndTime = 0;
+    this.respawnAt = 0;
+  },
+};
+
+// ============================================================
 // INPUT (DESKTOP)
 // ============================================================
 const Input = {
@@ -4328,6 +6093,8 @@ const Input = {
 
     document.addEventListener('pointerlockchange', () => {
       if (Device.isMobile) return;
+      // In multiplayer, don't auto-pause on pointer lock loss — would desync
+      if (Net.enabled) return;
       if (document.pointerLockElement !== Game.renderer.domElement && Game.state === 'playing') {
         togglePause();
       }
@@ -4697,6 +6464,10 @@ function checkWaveEnd() {
 // LEVEL CLEAR / RESET
 // ============================================================
 function clearLevel() {
+  // Remove multiplayer remote players (but keep Net connection alive)
+  if (Net.remotePlayers) {
+    Object.keys(Net.remotePlayers).forEach(id => Net.removeRemotePlayer(id));
+  }
   Game.enemies.forEach(e => e.remove());
   Game.enemies = [];
   Game.pickups.forEach(p => Game.scene.remove(p.mesh));
@@ -4816,6 +6587,154 @@ async function startGame() {
   setTimeout(() => startWave(1), 600);
 }
 
+async function startGameAsPeer() {
+  // Peer joins a game in progress (or about to start)
+  // Same setup as startGame but skip wave spawning (host owns enemies)
+  document.getElementById('mainMenu').classList.add('hidden');
+  document.getElementById('pauseMenu').classList.add('hidden');
+  document.getElementById('gameOverMenu').classList.add('hidden');
+  document.getElementById('victoryMenu').classList.add('hidden');
+
+  Audio.resume();
+
+  // Use weather from host if provided
+  if (Game.netWeather && !Game.weather) {
+    Game.weather = Game.netWeather;
+  } else if (!Game.weather) {
+    try { await WeatherIntel.load(); } catch(e) {}
+  }
+  UI.setLoading(false);
+
+  clearLevel();
+  buildLevel();
+
+  Game.player = new Player();
+  if (!Game.scene.children.includes(Game.camera)) {
+    Game.scene.add(Game.camera);
+  }
+  WeaponView.init();
+
+  document.querySelectorAll('.ws-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.weapon === 'rifle');
+  });
+
+  Game.score = 0;
+  Game.kills = 0;
+  Game.wave = 0;
+  Game.enemies = []; // peer enemies are mirrored from host snapshots
+
+  UI.show();
+  UI.update();
+
+  Game.state = 'playing';
+  Device.checkOrient();
+
+  if (!Device.isMobile) {
+    try { Game.renderer.domElement.requestPointerLock(); } catch(e) {}
+  }
+  // No startWave — peer is read-only for enemies
+}
+
+// ====== DEATHMATCH START FUNCTIONS ======
+async function startGameDeathmatch() {
+  document.getElementById('mainMenu').classList.add('hidden');
+  document.getElementById('pauseMenu').classList.add('hidden');
+  document.getElementById('gameOverMenu').classList.add('hidden');
+  document.getElementById('victoryMenu').classList.add('hidden');
+
+  Audio.resume();
+
+  if (!Game.weather) {
+    try { await WeatherIntel.load(); } catch(e) {}
+  }
+  UI.setLoading(false);
+
+  clearLevel();
+  buildLevel();
+
+  Game.player = new Player();
+  // Spawn host at random spawn point in DM
+  const sp = Net.randomSpawnPoint();
+  Game.player.position.copy(sp);
+  if (!Game.scene.children.includes(Game.camera)) {
+    Game.scene.add(Game.camera);
+  }
+  WeaponView.init();
+
+  document.querySelectorAll('.ws-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.weapon === 'rifle');
+  });
+
+  Game.score = 0;
+  Game.kills = 0;
+  Game.wave = 0;
+  Game.enemies = []; // no AI in DM
+
+  // Show match HUD
+  document.getElementById('mpMatchHud').style.display = 'block';
+  document.getElementById('mpMatchLimit').textContent = Net.matchFragLimit;
+
+  UI.show();
+  UI.update();
+
+  Game.state = 'playing';
+  Device.checkOrient();
+
+  if (!Device.isMobile) {
+    try { Game.renderer.domElement.requestPointerLock(); } catch(e) {}
+  }
+}
+
+async function startGameDeathmatchAsPeer() {
+  document.getElementById('mainMenu').classList.add('hidden');
+  document.getElementById('pauseMenu').classList.add('hidden');
+  document.getElementById('gameOverMenu').classList.add('hidden');
+  document.getElementById('victoryMenu').classList.add('hidden');
+
+  Audio.resume();
+
+  if (Game.netWeather && !Game.weather) {
+    Game.weather = Game.netWeather;
+  } else if (!Game.weather) {
+    try { await WeatherIntel.load(); } catch(e) {}
+  }
+  UI.setLoading(false);
+
+  clearLevel();
+  buildLevel();
+
+  Game.player = new Player();
+  const sp = Net.randomSpawnPoint();
+  Game.player.position.copy(sp);
+  if (!Game.scene.children.includes(Game.camera)) {
+    Game.scene.add(Game.camera);
+  }
+  WeaponView.init();
+
+  document.querySelectorAll('.ws-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.weapon === 'rifle');
+  });
+
+  Game.score = 0;
+  Game.kills = 0;
+  Game.wave = 0;
+  Game.enemies = [];
+
+  // Show match HUD
+  document.getElementById('mpMatchHud').style.display = 'block';
+  document.getElementById('mpMatchLimit').textContent = Net.matchFragLimit;
+
+  UI.show();
+  UI.update();
+
+  Game.state = 'playing';
+  Device.checkOrient();
+
+  if (!Device.isMobile) {
+    try { Game.renderer.domElement.requestPointerLock(); } catch(e) {}
+  }
+}
+
 function togglePause() {
   if (Game.state === 'playing') {
     Game.state = 'paused';
@@ -4832,6 +6751,16 @@ function togglePause() {
 
 function gameOver() {
   if (Game.state !== 'playing') return;
+  // In DM mode, don't show game over — respawn handles it
+  if (Net.enabled && Net.lobbyMode === 'dm') {
+    Game.state = 'dead';
+    if (Net.isHost && Game.player.health <= 0 && !Net.respawnAt) {
+      Net.scheduleHostRespawn();
+    }
+    // Peer respawn is scheduled by 'youDied' message
+    UI.hide();
+    return;
+  }
   Game.state = 'dead';
   if (document.exitPointerLock && !Device.isMobile) document.exitPointerLock();
   UI.hide();
@@ -4858,11 +6787,20 @@ function victory() {
 
 function returnToMenu() {
   Game.state = 'menu';
+  // Disconnect from multiplayer if active
+  if (Net.enabled) {
+    Net.cleanup();
+  }
   clearLevel();
   document.getElementById('mainMenu').classList.remove('hidden');
   document.getElementById('pauseMenu').classList.add('hidden');
   document.getElementById('gameOverMenu').classList.add('hidden');
   document.getElementById('victoryMenu').classList.add('hidden');
+  document.getElementById('mpMenu').classList.add('hidden');
+  document.getElementById('mpMatchHud').style.display = 'none';
+  document.getElementById('mpRespawn').classList.remove('show');
+  document.getElementById('mpSquadHud').innerHTML = '';
+  document.getElementById('mpNameplates').innerHTML = '';
   UI.hide();
 }
 
@@ -4903,6 +6841,11 @@ function animate() {
         Effects.lightning();
       }
     }
+  }
+
+  // Multiplayer tick — runs in playing or paused state
+  if (Net.enabled) {
+    Net.tick(dt);
   }
 
   Game.renderer.render(Game.scene, Game.camera);
@@ -4954,6 +6897,116 @@ function closeSettings() {
 document.getElementById('btnSettings').addEventListener('click', () => openSettings('main'));
 document.getElementById('btnPauseSettings').addEventListener('click', () => openSettings('pause'));
 document.getElementById('btnSettingsBack').addEventListener('click', closeSettings);
+
+// ============================================================
+// MULTIPLAYER MENU NAVIGATION
+// ============================================================
+function openMpMenu() {
+  Audio.resume();
+  document.getElementById('mainMenu').classList.add('hidden');
+  document.getElementById('mpMenu').classList.remove('hidden');
+  // Reset to landing
+  document.getElementById('mpLanding').classList.remove('hidden');
+  document.getElementById('mpHostLobby').classList.add('hidden');
+  document.getElementById('mpJoinLobby').classList.add('hidden');
+  document.getElementById('mpJoinedLobby').classList.add('hidden');
+}
+function closeMpMenu() {
+  document.getElementById('mpMenu').classList.add('hidden');
+  document.getElementById('mainMenu').classList.remove('hidden');
+}
+
+document.getElementById('btnMultiplayer').addEventListener('click', openMpMenu);
+document.getElementById('mpBackBtn').addEventListener('click', () => {
+  Net.cleanup();
+  closeMpMenu();
+});
+document.getElementById('mpHostBtn').addEventListener('click', () => {
+  document.getElementById('mpLanding').classList.add('hidden');
+  document.getElementById('mpHostLobby').classList.remove('hidden');
+  document.getElementById('mpHostCode').textContent = '------';
+  // Reset mode selection to default
+  document.querySelectorAll('.mp-mode-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.mode === 'coop');
+  });
+  Net.lobbyMode = 'coop';
+  Net.startHost();
+});
+
+// Mode picker tabs
+document.querySelectorAll('.mp-mode-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.mp-mode-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    Net.lobbyMode = tab.dataset.mode;
+    // Notify peers of mode change
+    if (Net.isHost) {
+      Net.broadcast({ t: 'modeChange', mode: Net.lobbyMode });
+    }
+  });
+});
+document.getElementById('mpJoinBtn').addEventListener('click', () => {
+  document.getElementById('mpLanding').classList.add('hidden');
+  document.getElementById('mpJoinLobby').classList.remove('hidden');
+  document.getElementById('mpJoinInput').value = '';
+  document.getElementById('mpJoinInput').focus();
+});
+document.getElementById('mpHostCancel').addEventListener('click', () => {
+  Net.cleanup();
+  document.getElementById('mpHostLobby').classList.add('hidden');
+  document.getElementById('mpLanding').classList.remove('hidden');
+});
+document.getElementById('mpJoinCancel').addEventListener('click', () => {
+  Net.cleanup();
+  document.getElementById('mpJoinLobby').classList.add('hidden');
+  document.getElementById('mpLanding').classList.remove('hidden');
+});
+document.getElementById('mpJoinedLeave').addEventListener('click', () => {
+  Net.leave();
+});
+document.getElementById('mpHostStart').addEventListener('click', () => {
+  Audio.resume();
+  Device.lockLandscape();
+  Net.hostStartGame();
+});
+document.getElementById('mpJoinConnect').addEventListener('click', () => {
+  const code = document.getElementById('mpJoinInput').value.trim();
+  if (code.length === 6) Net.startJoin(code);
+  else Net.uiJoinStatus('Enter all 6 characters.', 'error');
+});
+// Auto-uppercase + auto-submit on enter
+const mpInput = document.getElementById('mpJoinInput');
+mpInput.addEventListener('input', () => {
+  mpInput.value = mpInput.value.toUpperCase().replace(/[^A-Z2-9]/g, '');
+});
+mpInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    document.getElementById('mpJoinConnect').click();
+  }
+});
+// Copy code button
+document.getElementById('mpCopyCode').addEventListener('click', () => {
+  const code = document.getElementById('mpHostCode').textContent;
+  if (code && code !== '------') {
+    try {
+      navigator.clipboard.writeText(code);
+      const btn = document.getElementById('mpCopyCode');
+      btn.classList.add('copied');
+      btn.textContent = 'COPIED';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.textContent = 'COPY';
+      }, 1200);
+    } catch(e) {
+      // Fallback: select the code text
+      const codeEl = document.getElementById('mpHostCode');
+      const range = document.createRange();
+      range.selectNode(codeEl);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+    }
+  }
+});
 
 // Boot
 init();
