@@ -810,6 +810,77 @@
     letter-spacing: 3px;
     margin-top: 14px;
   }
+
+  /* === Quick Match === */
+  .mp-quick-list {
+    max-width: 480px; width: 100%;
+    margin: 10px auto;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(0,217,255,0.2);
+    padding: 8px;
+    max-height: 340px;
+    overflow-y: auto;
+  }
+  .quick-status {
+    text-align: center;
+    color: #888;
+    font-family: 'Black Ops One', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 30px 10px;
+    line-height: 1.5;
+  }
+  .quick-status.error { color: #ff6666; }
+  .quick-lobby-row {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(0,217,255,0.25);
+    color: #fff;
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.12s;
+    text-align: left;
+  }
+  .quick-lobby-row:hover {
+    background: rgba(0,217,255,0.18);
+    border-color: #00d9ff;
+    transform: translateX(2px);
+  }
+  .ql-mode {
+    font-family: 'Black Ops One';
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 2px;
+    letter-spacing: 1.5px;
+    min-width: 56px;
+    text-align: center;
+  }
+  .ql-mode.coop { background: rgba(0,255,140,0.18); border: 1px solid #00ff8c; color: #00ff8c; }
+  .ql-mode.dm { background: rgba(255,42,42,0.18); border: 1px solid #ff2a2a; color: #ff6666; }
+  .ql-info { flex: 1; }
+  .ql-host {
+    font-family: 'Black Ops One';
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+  .ql-code {
+    color: #888;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .ql-players {
+    font-family: 'Black Ops One';
+    color: #ffce00;
+    font-size: 13px;
+    min-width: 40px;
+    text-align: right;
+  }
   .mp-status {
     color: #aaa;
     font-size: 11px;
@@ -1032,6 +1103,130 @@
   }
   .wave-label { font-family: 'Black Ops One'; color: #ff6b00; letter-spacing: 6px; font-size: 14px; }
   .wave-num { font-family: 'Black Ops One'; color: #fff; font-size: clamp(40px, 7vw, 56px); letter-spacing: 4px; text-shadow: 0 0 20px rgba(255,107,0,0.6); }
+
+  /* === Kill Streak Banner (CoD multi-kill) === */
+  .kill-streak-banner {
+    position: absolute;
+    left: 50%; top: 22%;
+    transform: translate(-50%, -50%) scale(0.5);
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 14;
+    --ks-color: #ffce00;
+  }
+  .kill-streak-banner.show { animation: ksAnnounce 2.4s cubic-bezier(.2,.8,.2,1) forwards; }
+  @keyframes ksAnnounce {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+    15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+    25%  { opacity: 1; transform: translate(-50%, -50%) scale(1.0); }
+    80%  { opacity: 1; transform: translate(-50%, -50%) scale(1.0); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  }
+  .ks-title {
+    font-family: 'Black Ops One', monospace;
+    color: var(--ks-color);
+    font-size: clamp(28px, 5.5vw, 56px);
+    letter-spacing: 8px;
+    text-shadow:
+      0 0 18px var(--ks-color),
+      0 0 36px var(--ks-color),
+      0 2px 0 #000,
+      0 -2px 0 #000,
+      2px 0 0 #000,
+      -2px 0 0 #000;
+    -webkit-text-stroke: 1px #000;
+  }
+  .ks-sub {
+    font-family: 'Black Ops One', monospace;
+    color: #fff;
+    font-size: clamp(11px, 1.6vw, 14px);
+    letter-spacing: 4px;
+    margin-top: 4px;
+    text-shadow: 0 0 8px rgba(0,0,0,0.9);
+  }
+
+  /* === Hit-direction indicator (red arc on screen edge) === */
+  .hit-dir-indicator {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 280px; height: 280px;
+    transform: translate(-50%, -50%) rotate(0rad);
+    pointer-events: none;
+    z-index: 8;
+    opacity: 0;
+  }
+  .hit-dir-indicator.show {
+    animation: hitDirShow 0.7s ease-out forwards;
+  }
+  @keyframes hitDirShow {
+    0%   { opacity: 0; }
+    15%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  .hit-dir-arc {
+    position: absolute;
+    left: 50%; top: 0;
+    width: 90px; height: 28px;
+    transform: translate(-50%, 0);
+    background: linear-gradient(to bottom,
+      rgba(255, 42, 42, 0.85) 0%,
+      rgba(255, 42, 42, 0.4) 60%,
+      rgba(255, 42, 42, 0) 100%);
+    border-radius: 50% 50% 50% 50% / 100% 100% 0 0;
+    border-top: 2px solid rgba(255, 80, 80, 0.95);
+    filter: drop-shadow(0 0 8px rgba(255,42,42,0.8));
+  }
+
+  /* === Killcam-lite === */
+  .killcam {
+    position: absolute;
+    left: 50%; top: 65%;
+    transform: translate(-50%, 0);
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(255, 42, 42, 0.6);
+    padding: 10px 26px;
+    text-align: center;
+    pointer-events: none;
+    z-index: 14;
+    opacity: 0;
+    backdrop-filter: blur(6px);
+  }
+  .killcam.show {
+    animation: killcamShow 4.5s ease-out forwards;
+  }
+  @keyframes killcamShow {
+    0%   { opacity: 0; transform: translate(-50%, 10px); }
+    8%   { opacity: 1; transform: translate(-50%, 0); }
+    90%  { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -10px); }
+  }
+  .killcam-label {
+    font-family: 'Black Ops One', monospace;
+    color: #ff2a2a;
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 4px;
+  }
+  .killcam-name {
+    font-family: 'Black Ops One', monospace;
+    color: #fff;
+    font-size: clamp(20px, 3vw, 28px);
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(255,42,42,0.5);
+  }
+
+  /* === Tactical sprint speed-line indicator === */
+  .tac-sprint-overlay {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center,
+      transparent 50%, rgba(0,0,0,0.18) 90%);
+    opacity: 0;
+    z-index: 5;
+    transition: opacity 0.18s;
+  }
+  .tac-sprint-overlay.active { opacity: 1; }
 
   /* ============================== MOBILE CONTROLS ============================== */
   .mobile-controls {
@@ -1314,6 +1509,7 @@
       <h3>// DESKTOP CONTROLS //</h3>
       <div><span class="key">W A S D</span> Move (W = forward relative to facing)</div>
       <div><span class="key">SHIFT</span> Sprint &nbsp; <span class="key">CTRL</span> Crouch &nbsp; <span class="key">SPACE</span> Jump</div>
+      <div><span class="key">W W</span> Tactical Sprint (double-tap) &nbsp; <span class="key">SHIFT+CTRL</span> while moving = Slide</div>
       <div><span class="key">MOUSE</span> Aim &nbsp; <span class="key">LMB</span> Fire &nbsp; <span class="key">RMB</span> ADS / SCOPE</div>
       <div><span class="key">R</span> Reload &nbsp; <span class="key">1</span> Rifle &nbsp; <span class="key">2</span> Pistol &nbsp; <span class="key">3</span> Shotgun &nbsp; <span class="key">4</span> Sniper</div>
       <div><span class="key">ESC</span> / <span class="key">P</span> Pause</div>
@@ -1323,8 +1519,10 @@
       <div>Right side: drag to aim</div>
       <div>FIRE / ADS / JUMP / RELOAD buttons on right</div>
       <div>Weapon select: 1·2·3·4 buttons above joystick</div>
+      <h3 style="margin-top:12px;">// CO-OP / DEATHMATCH //</h3>
+      <div style="color:#aaa;">Tap MULTIPLAYER → QUICK MATCH to find online lobbies, or HOST/JOIN by 6-char code. Up to 8 operators.</div>
       <h3 style="margin-top:12px;">// MISSION //</h3>
-      <div style="color:#aaa;">Survive 5 waves in the city. Collect drops from kills. Streetlights activate when conditions are dark.</div>
+      <div style="color:#aaa;">Survive 5 waves in the city. Chain kills within 3 seconds for DOUBLE / TRIPLE / RAMPAGE bonuses. Streetlights activate when conditions are dark.</div>
     </div>
   </div>
 </div>
@@ -1351,6 +1549,11 @@
     <div id="mpLanding">
       <div class="settings-hint">Up to 8 operators per match. Choose mode in the lobby.</div>
       <div class="mp-cards">
+        <button class="mp-card" id="mpQuickBtn">
+          <div class="mp-card-icon">⚡</div>
+          <div class="mp-card-title">QUICK MATCH</div>
+          <div class="mp-card-sub">Browse open lobbies online</div>
+        </button>
         <button class="mp-card" id="mpHostBtn">
           <div class="mp-card-icon">▲</div>
           <div class="mp-card-title">HOST SQUAD</div>
@@ -1358,12 +1561,22 @@
         </button>
         <button class="mp-card" id="mpJoinBtn">
           <div class="mp-card-icon">▶</div>
-          <div class="mp-card-title">JOIN SQUAD</div>
+          <div class="mp-card-title">JOIN BY CODE</div>
           <div class="mp-card-sub">Enter a 6-character squad code</div>
         </button>
       </div>
       <div style="margin-top:18px;">
         <button class="menu-btn" id="mpBackBtn">BACK</button>
+      </div>
+    </div>
+
+    <!-- Quick Match browser -->
+    <div id="mpQuickMatch" class="hidden">
+      <div class="settings-hint">Online lobbies — tap to join. Refreshes every few seconds.</div>
+      <div class="mp-quick-list" id="mpQuickList"></div>
+      <div style="margin-top: 14px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button class="menu-btn-small" id="mpQuickRefresh">REFRESH</button>
+        <button class="menu-btn-small" id="mpQuickBack">BACK</button>
       </div>
     </div>
 
@@ -1392,6 +1605,13 @@
       </div>
 
       <div class="mp-status" id="mpHostStatus">Waiting for connections...</div>
+
+      <!-- Public toggle -->
+      <div class="setting-row" style="max-width:460px; margin: 8px auto;">
+        <label>Public Lobby (discoverable)</label>
+        <button class="toggle-btn" id="mpPublicToggle" data-state="off">OFF</button>
+      </div>
+
       <div class="mp-roster">
         <div class="mp-roster-label">SQUAD &middot; <span id="mpHostCount">1/8</span></div>
         <div id="mpHostRoster"></div>
@@ -1631,6 +1851,26 @@
     <div class="wave-label">WAVE INCOMING</div>
     <div class="wave-num" id="waveAnnNum">1</div>
   </div>
+
+  <!-- Kill streak banner (CoD-style multi-kill announcement) -->
+  <div class="kill-streak-banner" id="killStreakBanner">
+    <div class="ks-title" id="ksTitle">DOUBLE KILL</div>
+    <div class="ks-sub" id="ksSub">+150 BONUS</div>
+  </div>
+
+  <!-- Hit direction indicator (red arc pointing toward attacker) -->
+  <div class="hit-dir-indicator" id="hitDirIndicator">
+    <div class="hit-dir-arc"></div>
+  </div>
+
+  <!-- Killcam-lite (shows who killed you) -->
+  <div class="killcam" id="killcam">
+    <div class="killcam-label">KILLED BY</div>
+    <div class="killcam-name" id="killcamName">OPERATOR</div>
+  </div>
+
+  <!-- Tactical sprint vignette -->
+  <div class="tac-sprint-overlay" id="tacSprintOverlay"></div>
 
   <div class="stats-panel">
     <div class="stat-row">
@@ -2094,16 +2334,27 @@ class Player {
     this.maxHealth = 100;
     this.armor = 50;
     this.maxArmor = 100;
-    this.speed = 6;
-    this.sprintMul = 1.6;
-    this.crouchMul = 0.5;
-    this.adsMul = 0.55;
-    this.jumpVel = 7;
-    this.gravity = 20;
+    this.speed = 7.5;          // CoD-style higher base speed
+    this.sprintMul = 1.55;
+    this.tacSprintMul = 1.95;  // Tactical sprint (double-tap W) — short burst
+    this.crouchMul = 0.55;
+    this.adsMul = 0.6;
+    this.jumpVel = 7.5;
+    this.gravity = 22;
     this.onGround = true;
     this.crouching = false;
     this.sprinting = false;
+    this.tacSprinting = false;
+    this.tacSprintEndTime = 0;
+    this.lastForwardTap = 0;
+    this.sliding = false;
+    this.slideEndTime = 0;
+    this.slideVel = new THREE.Vector3();
     this.ads = false;
+    this.killStreak = 0;
+    this.lastKillTime = 0;
+    this.lastKilledByName = null;
+    this.lastKilledByDir = null;
 
     this.weapons = {
       rifle: { ...WEAPONS.rifle, mag: WEAPONS.rifle.magSize, reserve: WEAPONS.rifle.reserve },
@@ -2128,6 +2379,11 @@ class Player {
   setAds(state) {
     if (this.ads === state) return;
     this.ads = state;
+    if (state) {
+      // ADS cancels tactical sprint and slide
+      this.tacSprinting = false;
+      this.sliding = false;
+    }
     if (state && this.weapon.scoped) {
       Audio.play('scope_in');
     }
@@ -2143,11 +2399,41 @@ class Player {
     this.lastDamageTime = Game.clock.getElapsedTime();
     Audio.play('damage');
     UI.flashDamage();
+    // CoD-style hit-direction indicator
+    if (fromDir && fromDir.lengthSq && fromDir.lengthSq() > 0.01) {
+      UI.hitDirection(fromDir);
+      this.lastKilledByDir = fromDir.clone();
+    }
     if (this.health <= 0) {
       this.health = 0;
+      this.killStreak = 0;
+      // Show killcam — pick the closest alive enemy as the killer
+      let closestEnemy = null;
+      let closestDist = Infinity;
+      for (const e of Game.enemies || []) {
+        if (e.dead) continue;
+        const d = e.position.distanceTo(this.position);
+        if (d < closestDist) { closestDist = d; closestEnemy = e; }
+      }
+      if (closestEnemy) {
+        const name = closestEnemy.type === 'heavy' ? 'HEAVY GUNNER' :
+                     (closestEnemy.type === 'scout' ? 'SCOUT' : 'SOLDIER');
+        UI.showKillcam(name, fromDir);
+      }
       gameOver();
     }
     UI.update();
+  }
+
+  registerKill(headshot) {
+    const now = performance.now();
+    if (now - this.lastKillTime < 3000) {
+      this.killStreak++;
+    } else {
+      this.killStreak = 1;
+    }
+    this.lastKillTime = now;
+    UI.killStreakAnnounce(this.killStreak, headshot);
   }
 
   heal(amount) { this.health = Math.min(this.maxHealth, this.health + amount); }
@@ -2355,27 +2641,46 @@ class Player {
     const targetH = this.crouching ? this.crouchHeight : this.standHeight;
     this.height += (targetH - this.height) * Math.min(1, dt * 10);
 
-    // Sprint
+    // Sprint detection
     this.sprinting = (!!Input.keys[k.sprint] || !!Input.keys['ShiftRight']) && moveLen > 0.1 && !this.ads && !this.crouching;
 
+    // Tactical sprint expires after duration or if sprint stops
+    const now = performance.now();
+    if (this.tacSprinting && (now > this.tacSprintEndTime || !this.sprinting || this.ads)) {
+      this.tacSprinting = false;
+    }
+
+    // Slide expires after duration
+    if (this.sliding && now > this.slideEndTime) {
+      this.sliding = false;
+    }
+    // Cancel slide if jumping or shooting (slide-cancel = sprint then crouch then ADS/jump)
+    if (this.sliding && this.ads) {
+      this.sliding = false;
+    }
+
     let sp = this.speed;
-    if (this.sprinting) sp *= this.sprintMul;
-    if (this.crouching) sp *= this.crouchMul;
+    if (this.tacSprinting) sp *= this.tacSprintMul;
+    else if (this.sprinting) sp *= this.sprintMul;
+    if (this.crouching && !this.sliding) sp *= this.crouchMul;
     if (this.ads) sp *= this.adsMul;
 
     // Convert local move to world space using yaw
-    // forward vector when yaw=0 should point along -Z (Three.js convention)
-    // mvFwd > 0 means forward (negative Z direction in world before yaw rotation)
     const cos = Math.cos(this.yaw), sin = Math.sin(this.yaw);
-    // Local forward (-Z) rotated by yaw: (sin*mvFwd_z=-mvFwd → ... let's just do it cleanly)
-    // World move = Right * mvRight + Forward * mvFwd
-    // Right (local +X) rotated by yaw → (cos, 0, -sin) NO wait we rotate around Y
-    // If yaw rotates camera around Y, forward becomes (-sin(yaw), 0, -cos(yaw))
-    // and right becomes (cos(yaw), 0, -sin(yaw))
     const fwdX = -sin, fwdZ = -cos;
     const rightX = cos, rightZ = -sin;
     let vx = (rightX * mvRight + fwdX * mvFwd) * sp;
     let vz = (rightZ * mvRight + fwdZ * mvFwd) * sp;
+
+    // Slide overrides movement input — keeps initial direction with friction
+    if (this.sliding) {
+      const slideRem = (this.slideEndTime - now) / 700;
+      const friction = Math.max(0, slideRem);
+      vx = this.slideVel.x * friction;
+      vz = this.slideVel.z * friction;
+      // Force crouch height during slide
+      this.crouching = true;
+    }
 
     this.velocity.x = vx;
     this.velocity.z = vz;
@@ -2468,11 +2773,17 @@ class Player {
     const baseFov = (Settings && Settings.current) ? Settings.current.fovHip : 75;
     if (this.ads) {
       targetFov = w.scoped ? w.scopeFov : (baseFov - 20);
+    } else if (this.tacSprinting) {
+      targetFov = baseFov + 12;  // strong FOV boost on tac sprint
     } else {
       targetFov = this.sprinting ? (baseFov + 5) : baseFov;
     }
     Game.camera.fov += (targetFov - Game.camera.fov) * Math.min(1, dt * 12);
     Game.camera.updateProjectionMatrix();
+
+    // Toggle tactical sprint overlay
+    const tsOverlay = document.getElementById('tacSprintOverlay');
+    if (tsOverlay) tsOverlay.classList.toggle('active', this.tacSprinting);
 
     // Show/hide scope overlay for sniper
     const scopeEl = document.getElementById('scopeOverlay');
@@ -3060,6 +3371,10 @@ class Enemy {
     Audio.play('enemy_die');
     UI.killFeed('YOU', this.type.toUpperCase(), Game.player.weapon.name);
     UI.scorePopup('+' + (this.type === 'heavy' ? 150 : (this.type === 'scout' ? 75 : 100)) + (headshot ? ' HEADSHOT' : ''));
+
+    // Kill streak tracking (CoD-style)
+    if (Game.player) Game.player.registerKill(headshot);
+
     UI.update();
 
     this.fallAxis = Math.random() > 0.5 ? 1 : -1;
@@ -3116,59 +3431,156 @@ class Enemy {
     const targetYaw = Math.atan2(dx, dz);
     this.group.rotation.y = targetYaw;
 
+    // ============= AIMING POSE =============
+    // When aggro and within attack range, raise the gun + track player vertically
+    const aiming = this.aggro && dist < this.attackRange + 4;
+    const dy = (Game.player.position.y + 1.4) - (this.position.y + 1.35); // gun-to-player-chest delta
+    const targetPitch = aiming ? Math.atan2(dy, dist) : 0;
+    // Smooth pitch tracking
+    this.aimPitch = (this.aimPitch || 0) + (targetPitch - (this.aimPitch || 0)) * Math.min(1, dt * 8);
+
+    // Recoil decay
+    this.recoilKick = Math.max(0, (this.recoilKick || 0) - dt * 4);
+    this.muzzleFlashTimer = Math.max(0, (this.muzzleFlashTimer || 0) - dt * 1);
+
+    // Gun group pose: forward + up when aiming
+    if (this.gun) {
+      const baseY = 1.35 * this.scale;
+      const baseZ = 0.35 * this.scale;
+      // When aiming, push gun forward/up like shouldering
+      const aimFwd = aiming ? 0.08 * this.scale : 0;
+      const aimUp = aiming ? 0.08 * this.scale : 0;
+      // Recoil pulls back in Z and adds upward kick
+      const rZ = this.recoilKick * 0.12 * this.scale;
+      const rRot = this.recoilKick * 0.4;
+
+      this.gun.position.set(
+        0.18 * this.scale,
+        baseY + aimUp,
+        baseZ + aimFwd + rZ
+      );
+      this.gun.rotation.x = -this.aimPitch + rRot;
+    }
+    // Arms follow gun: raise both when aiming
+    if (this.armR && this.armL) {
+      const armPitchTarget = aiming ? -1.4 - this.aimPitch : 0;
+      this.armR.rotation.x = (this.armR.rotation.x || 0) + (armPitchTarget - (this.armR.rotation.x || 0)) * Math.min(1, dt * 8);
+      this.armL.rotation.x = (this.armL.rotation.x || 0) + (armPitchTarget * 0.7 - (this.armL.rotation.x || 0)) * Math.min(1, dt * 8);
+    }
+
+    // Head tracking — slight tilt toward player vertical
+    if (this.head) {
+      const headYaw = 0; // already covered by group rotation
+      const headPitch = aiming ? -this.aimPitch * 0.5 : 0;
+      this.head.rotation.x = (this.head.rotation.x || 0) + (headPitch - (this.head.rotation.x || 0)) * Math.min(1, dt * 6);
+    }
+
+    // Muzzle glow on the gun barrel during firing
+    if (this.muzzleFlashTimer > 0 && this.gun && this.gun.children.length) {
+      // The gun's barrel is the second mesh (index 1) — give it a temporary glow
+      const intensity = this.muzzleFlashTimer * 12;
+      if (!this.gunMuzzleLight) {
+        this.gunMuzzleLight = new THREE.PointLight(0xffaa44, 0, 3, 2);
+        this.gunMuzzleLight.position.set(0, 0.04 * this.scale, -0.42 * this.scale);
+        this.gun.add(this.gunMuzzleLight);
+      }
+      this.gunMuzzleLight.intensity = intensity;
+    } else if (this.gunMuzzleLight) {
+      this.gunMuzzleLight.intensity = 0;
+    }
+
     if (this.aggro) {
+      // Initialize strafe state
+      if (this.strafeT === undefined) {
+        this.strafeT = Math.random() * 4;
+        this.strafeDir = Math.random() > 0.5 ? 1 : -1;
+      }
+      this.strafeT -= dt;
+      if (this.strafeT < 0) {
+        // Periodically reverse strafe direction (3-5s intervals)
+        this.strafeT = 2 + Math.random() * 2;
+        this.strafeDir *= -1;
+      }
+
+      let moveX = 0, moveZ = 0;
+      let walking = false;
+
       if (dist > this.attackRange - 4) {
-        const moveX = (dx / dist) * this.speed * dt;
-        const moveZ = (dz / dist) * this.speed * dt;
-        const newX = this.position.x + moveX;
-        const newZ = this.position.z + moveZ;
-        let blocked = false;
-        for (const obs of Game.obstacles) {
-          if (!obs.userData.collidable) continue;
-          const box = obs.userData.bbox;
-          if (newX > box.min.x - this.radius && newX < box.max.x + this.radius &&
-              newZ > box.min.z - this.radius && newZ < box.max.z + this.radius &&
-              box.min.y < 2 && box.max.y > 0) {
-            blocked = true; break;
-          }
+        // Approach
+        moveX = (dx / dist) * this.speed * dt;
+        moveZ = (dz / dist) * this.speed * dt;
+        walking = true;
+      } else if (dist < this.attackRange - 6) {
+        // Too close, back up while strafing
+        moveX = -(dx / dist) * this.speed * 0.4 * dt;
+        moveZ = -(dz / dist) * this.speed * 0.4 * dt;
+        // Add strafe component perpendicular to player
+        moveX += -(dz / dist) * this.speed * 0.5 * this.strafeDir * dt;
+        moveZ += (dx / dist) * this.speed * 0.5 * this.strafeDir * dt;
+        walking = true;
+      } else {
+        // In sweet spot — strafe sideways while shooting
+        moveX = -(dz / dist) * this.speed * 0.6 * this.strafeDir * dt;
+        moveZ = (dx / dist) * this.speed * 0.6 * this.strafeDir * dt;
+        walking = true;
+      }
+
+      const newX = this.position.x + moveX;
+      const newZ = this.position.z + moveZ;
+      let blocked = false;
+      for (const obs of Game.obstacles) {
+        if (!obs.userData.collidable) continue;
+        const box = obs.userData.bbox;
+        if (newX > box.min.x - this.radius && newX < box.max.x + this.radius &&
+            newZ > box.min.z - this.radius && newZ < box.max.z + this.radius &&
+            box.min.y < 2 && box.max.y > 0) {
+          blocked = true; break;
         }
-        if (!blocked) {
-          this.position.x = newX;
-          this.position.z = newZ;
-        } else {
-          const strafe = Math.random() > 0.5 ? 1 : -1;
-          this.position.x += -moveZ * strafe;
-          this.position.z += moveX * strafe;
-        }
+      }
+      if (!blocked) {
+        this.position.x = newX;
+        this.position.z = newZ;
+      } else {
+        // Reverse strafe direction on block
+        this.strafeDir *= -1;
+        walking = false;
+      }
+
+      // Walk leg animation (don't override arm pose — aiming code owns arms)
+      if (walking) {
         const t = Game.clock.getElapsedTime() * 6;
         this.legL.rotation.x = Math.sin(t) * 0.35;
         this.legR.rotation.x = -Math.sin(t) * 0.35;
-        if (this.armL) this.armL.rotation.x = -Math.sin(t) * 0.25;
-        if (this.shinL) this.shinL.rotation.x = Math.max(0, Math.sin(t * 1) * 0.2);
-        if (this.shinR) this.shinR.rotation.x = Math.max(0, -Math.sin(t * 1) * 0.2);
+        if (this.shinL) this.shinL.rotation.x = Math.max(0, Math.sin(t) * 0.2);
+        if (this.shinR) this.shinR.rotation.x = Math.max(0, -Math.sin(t) * 0.2);
       } else {
-        this.legL.rotation.x = 0;
-        this.legR.rotation.x = 0;
-        if (this.shinL) this.shinL.rotation.x = 0;
-        if (this.shinR) this.shinR.rotation.x = 0;
+        this.legL.rotation.x *= 0.85;
+        this.legR.rotation.x *= 0.85;
+        if (this.shinL) this.shinL.rotation.x *= 0.85;
+        if (this.shinR) this.shinR.rotation.x *= 0.85;
       }
 
       this.position.x = Math.max(Game.worldBox.min + this.radius, Math.min(Game.worldBox.max - this.radius, this.position.x));
       this.position.z = Math.max(Game.worldBox.min + this.radius, Math.min(Game.worldBox.max - this.radius, this.position.z));
+
+      // Ground snap: keep feet on terrain or raised platforms
+      this.position.y = groundHeightAt(this.position.x, this.position.z, this.radius);
       this.group.position.copy(this.position);
 
       const now = performance.now();
       if (dist < this.attackRange && now - this.lastAttack > this.fireRate) {
-        this.lastAttack = now;
+        // Jitter the fire timing slightly so it feels human, not metronomic
+        this.lastAttack = now + (Math.random() - 0.5) * 150;
         this.attack();
       }
     }
   }
 
   attack() {
-    const origin = this.position.clone(); origin.y += 1.4;
+    const origin = this.gun.getWorldPosition(new THREE.Vector3());
     const target = Game.player.position.clone();
-    const dir = target.sub(origin);
+    target.y += 1.4; // aim center mass
+    const dir = target.clone().sub(origin);
     const targetDist = dir.length();
     dir.normalize();
     const ray = new THREE.Raycaster(origin, dir, 0.5, targetDist);
@@ -3178,14 +3590,21 @@ class Enemy {
       if (hit.length) return;
     }
 
-    Effects.muzzleFlashAt(this.gun.getWorldPosition(new THREE.Vector3()));
-    Audio.play('shoot_pistol');
+    // Visual recoil — kick the gun arm back briefly
+    this.recoilKick = 0.18;
+    this.muzzleFlashTimer = 0.08;
+
+    Effects.muzzleFlashAt(origin);
+    Audio.play(this.type === 'heavy' ? 'shoot_shotgun' : 'shoot_rifle');
 
     const baseHit = Math.max(0.25, 0.85 - targetDist / 80);
     if (Math.random() < baseHit) {
-      Game.player.takeDamage(this.damage);
+      // Send the direction FROM enemy TO player (so the player can show direction back to attacker)
+      const fromDir = this.position.clone().sub(Game.player.position).setY(0).normalize();
+      Game.player.takeDamage(this.damage, fromDir);
     }
-    Effects.tracer(origin, Game.player.position.clone(), 0xff5533);
+    // Tracer originating from the gun's actual world position
+    Effects.tracer(origin, target.clone(), 0xffaa44);
   }
 
   remove() {
@@ -3404,6 +3823,28 @@ class RainSystem {
 // ============================================================
 // LEVEL
 // ============================================================
+// ============================================================
+// GROUND HEIGHT — find the highest walkable surface at (x,z)
+// Used for Y-snapping enemies and players so nothing floats
+// ============================================================
+function groundHeightAt(x, z, radius) {
+  let highest = 0; // ground baseline
+  if (!Game.obstacles) return highest;
+  for (const obs of Game.obstacles) {
+    if (!obs.userData.collidable) continue;
+    const box = obs.userData.bbox;
+    if (!box) continue;
+    // Only consider obstacles low enough to walk on (max ~1.5m tall)
+    // and that the (x,z) point is within
+    if (box.max.y > 2.5) continue;
+    if (x > box.min.x - radius && x < box.max.x + radius &&
+        z > box.min.z - radius && z < box.max.z + radius) {
+      if (box.max.y > highest) highest = box.max.y;
+    }
+  }
+  return highest;
+}
+
 function buildLevel() {
   const wx = Game.weather || { isNight: false, fogLevel: 0.5, isRaining: false };
 
@@ -4431,89 +4872,169 @@ const Minimap = {
     const half = size / 2;
     ctx.clearRect(0, 0, size, size);
 
-    // Range shown on minimap (world units → canvas)
+    // === FIXED ORIENTATION ===
+    // North (world -Z) at top, East (+X) at right.
+    // The player sits at center; everything else moves relative.
+    // World coords:  +X right, -Z up (away). Canvas:  +X right, +Y down.
+    // So canvas-X = (worldX - playerX) * scale
+    //    canvas-Y = (worldZ - playerZ) * scale  (NO Z negation here:
+    //               we negate when drawing so -Z appears at TOP)
+
     const rangeWorld = 70;
     const scale = half / rangeWorld;
 
-    // Rotate so player faces UP (north on map)
+    // === BACKGROUND GRID (every 10m) ===
     ctx.save();
     ctx.translate(half, half);
-    // Negative yaw because three.js rotates differently from canvas
-    ctx.rotate(-Game.player.yaw);
+    ctx.strokeStyle = 'rgba(0, 255, 140, 0.08)';
+    ctx.lineWidth = 0.5;
+    const gridStep = 10;
+    const offsetX = (Game.player.position.x % gridStep);
+    const offsetZ = (Game.player.position.z % gridStep);
+    for (let i = -rangeWorld; i <= rangeWorld; i += gridStep) {
+      const gx = (i - offsetX) * scale;
+      const gz = -(i - offsetZ) * scale;
+      ctx.beginPath();
+      ctx.moveTo(gx, -half);
+      ctx.lineTo(gx, half);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(-half, gz);
+      ctx.lineTo(half, gz);
+      ctx.stroke();
+    }
 
-    // Buildings
-    ctx.fillStyle = 'rgba(0, 255, 140, 0.18)';
-    ctx.strokeStyle = 'rgba(0, 255, 140, 0.45)';
+    // === ROADS (subtle background lines) ===
+    // Main N-S road centered at world X=0
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 8;
+    const roadX = (0 - Game.player.position.x) * scale;
+    const roadZ = -(0 - Game.player.position.z) * scale;
+    ctx.beginPath();
+    ctx.moveTo(roadX, -half); ctx.lineTo(roadX, half);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(-half, roadZ); ctx.lineTo(half, roadZ);
+    ctx.stroke();
+
+    // === BUILDINGS (filled rectangles) ===
+    ctx.fillStyle = 'rgba(120, 130, 145, 0.55)';
+    ctx.strokeStyle = 'rgba(0, 255, 140, 0.65)';
     ctx.lineWidth = 1;
     for (const b of Game.buildings || []) {
-      const dx = b.x - Game.player.position.x;
-      const dz = b.z - Game.player.position.z;
-      if (Math.abs(dx) > rangeWorld + 20 || Math.abs(dz) > rangeWorld + 20) continue;
-      ctx.fillRect(dx * scale - b.w/2 * scale, dz * scale - b.d/2 * scale, b.w * scale, b.d * scale);
-      ctx.strokeRect(dx * scale - b.w/2 * scale, dz * scale - b.d/2 * scale, b.w * scale, b.d * scale);
+      const dx = (b.x - Game.player.position.x) * scale;
+      const dz = -(b.z - Game.player.position.z) * scale;
+      if (Math.abs(dx) > half + 20 || Math.abs(dz) > half + 20) continue;
+      const w = b.w * scale;
+      const d = b.d * scale;
+      ctx.fillRect(dx - w/2, dz - d/2, w, d);
+      ctx.strokeRect(dx - w/2, dz - d/2, w, d);
     }
 
-    // Pickups
+    // === PICKUPS ===
     for (const p of Game.pickups) {
-      const dx = p.position.x - Game.player.position.x;
-      const dz = p.position.z - Game.player.position.z;
-      if (Math.abs(dx) > rangeWorld || Math.abs(dz) > rangeWorld) continue;
+      const dx = (p.position.x - Game.player.position.x) * scale;
+      const dz = -(p.position.z - Game.player.position.z) * scale;
+      if (Math.abs(dx) > half || Math.abs(dz) > half) continue;
       ctx.fillStyle = p.type === 'health' ? '#ff4444' : (p.type === 'armor' ? '#44aaff' : '#ffcc44');
       ctx.beginPath();
-      ctx.arc(dx * scale, dz * scale, 2.5, 0, Math.PI * 2);
+      ctx.arc(dx, dz, 2.5, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Enemies
+    // === REMOTE PLAYERS (allies in green) ===
+    if (Net && Net.remotePlayers) {
+      for (const rp of Object.values(Net.remotePlayers)) {
+        if (rp.dead) continue;
+        const dx = (rp.position.x - Game.player.position.x) * scale;
+        const dz = -(rp.position.z - Game.player.position.z) * scale;
+        if (Math.abs(dx) > half || Math.abs(dz) > half) continue;
+        const allyColor = (Net.lobbyMode === 'dm') ? '#ff2a2a' : '#00d9ff';
+        ctx.fillStyle = allyColor;
+        ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+        ctx.lineWidth = 1.2;
+        // Triangle showing their facing
+        ctx.save();
+        ctx.translate(dx, dz);
+        // -yaw because in our world space, +yaw turns left in plan view
+        ctx.rotate(-rp.yaw);
+        ctx.beginPath();
+        ctx.moveTo(0, -5);
+        ctx.lineTo(-3.5, 3.5);
+        ctx.lineTo(3.5, 3.5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+
+    // === ENEMIES ===
     for (const e of Game.enemies) {
       if (e.dead) continue;
-      const dx = e.position.x - Game.player.position.x;
-      const dz = e.position.z - Game.player.position.z;
-      if (Math.abs(dx) > rangeWorld || Math.abs(dz) > rangeWorld) continue;
+      const dx = (e.position.x - Game.player.position.x) * scale;
+      const dz = -(e.position.z - Game.player.position.z) * scale;
+      if (Math.abs(dx) > half || Math.abs(dz) > half) continue;
       ctx.fillStyle = e.type === 'heavy' ? '#ff2a2a' : (e.type === 'scout' ? '#ff8844' : '#ff5544');
       ctx.beginPath();
-      ctx.arc(dx * scale, dz * scale, e.type === 'heavy' ? 4 : 3, 0, Math.PI * 2);
+      ctx.arc(dx, dz, e.type === 'heavy' ? 4 : 3, 0, Math.PI * 2);
       ctx.fill();
-      // Pulse ring for aggro enemies
       if (e.aggro) {
         ctx.strokeStyle = 'rgba(255, 50, 50, ' + (0.4 + 0.4 * Math.sin(Game.clock.getElapsedTime() * 6)) + ')';
         ctx.lineWidth = 1.5;
         ctx.beginPath();
-        ctx.arc(dx * scale, dz * scale, 7, 0, Math.PI * 2);
+        ctx.arc(dx, dz, 7, 0, Math.PI * 2);
         ctx.stroke();
       }
     }
 
     ctx.restore();
 
-    // Player at center (always pointing up)
+    // === PLAYER (center, rotated by yaw) ===
     ctx.save();
     ctx.translate(half, half);
+    // Rotate the player triangle by yaw — yaw=0 is facing -Z (north)
+    // -yaw because canvas Y is flipped relative to world Z
+    ctx.rotate(-Game.player.yaw);
     // FOV cone
-    ctx.fillStyle = 'rgba(0, 255, 140, 0.15)';
+    ctx.fillStyle = 'rgba(0, 255, 140, 0.18)';
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.arc(0, 0, half * 0.95, -Math.PI/2 - 0.6, -Math.PI/2 + 0.6);
+    ctx.arc(0, 0, half * 0.95, -Math.PI/2 - 0.55, -Math.PI/2 + 0.55);
     ctx.closePath();
     ctx.fill();
-    // Player triangle
+    // Triangle
     ctx.fillStyle = '#00ff8c';
     ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
-    ctx.moveTo(0, -7);
-    ctx.lineTo(-4, 4);
-    ctx.lineTo(4, 4);
+    ctx.moveTo(0, -8);
+    ctx.lineTo(-5, 5);
+    ctx.lineTo(5, 5);
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
     ctx.restore();
 
-    // Compass marker (N at top)
-    ctx.fillStyle = '#00ff8c';
+    // === COMPASS LABELS (fixed — N up, E right, S down, W left) ===
     ctx.font = 'bold 9px "Black Ops One", monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('N', half, 12);
+    ctx.textBaseline = 'middle';
+    // N - bright, others dimmer
+    ctx.fillStyle = '#ffce00';
+    ctx.fillText('N', half, 9);
+    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+    ctx.fillText('S', half, size - 9);
+    ctx.fillText('E', size - 9, half);
+    ctx.fillText('W', 9, half);
+
+    // Center crosshair tick
+    ctx.strokeStyle = 'rgba(0, 255, 140, 0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(half - 4, half); ctx.lineTo(half + 4, half);
+    ctx.moveTo(half, half - 4); ctx.lineTo(half, half + 4);
+    ctx.stroke();
   }
 };
 
@@ -5074,13 +5595,24 @@ const Net = {
   respawnAt: 0,            // timestamp when local player can respawn (dm only)
 
   // Constants
-  PROTOCOL_VERSION: 2,     // bumped (PvP additions)
+  PROTOCOL_VERSION: 3,     // bumped (Quick Match)
   INPUT_HZ: 20,
   WORLD_HZ: 15,
   CODE_PREFIX: 'BLACKOUT',
+  DIRECTORY_ID: 'BLACKOUT-DIRECTORY-V3',  // shared discovery peer
+  ANNOUNCE_INTERVAL_MS: 5000,
+  LOBBY_TTL_MS: 15000,     // remove stale lobbies older than this
   MAX_PLAYERS: 8,
   RESPAWN_DELAY: 3000,
   MATCH_DURATION_MS: 5 * 60 * 1000,
+
+  // Quick Match state
+  isDirectory: false,           // we are the directory host
+  directoryConn: null,          // connection to directory (when not directory)
+  directoryAnnounceTimer: null,
+  publicLobbies: {},            // id -> { code, hostName, mode, players, max, lastSeen }
+  directoryClients: {},         // directory: connId -> conn
+  isPublic: false,              // host: announce to directory
 
   // Generate a 6-char alphanumeric code (no ambiguous chars)
   genCode() {
@@ -5406,10 +5938,12 @@ const Net = {
         if (Game.player) {
           Game.player.health = 0;
           Game.state = 'dead';
+          Game.player.killStreak = 0;
         }
         this.myDeaths++;
         this.respawnAt = msg.respawnAt || (performance.now() + this.RESPAWN_DELAY);
         UI.addKill && UI.addKill(`KIA — ${msg.killer}${msg.headshot ? ' (HS)' : ''}`, '#ff6666');
+        UI.showKillcam && UI.showKillcam(msg.killer || 'OPERATOR');
         // Hide death menu — we'll auto-respawn
         document.getElementById('gameOverMenu').classList.add('hidden');
         break;
@@ -5442,6 +5976,10 @@ const Net = {
         if (msg.scores) {
           const me = msg.scores.find(s => s.id === Net.myId);
           if (me) {
+            // Detect a new kill (frag count went up)
+            if (me.frags > Net.myFrags && Game.player) {
+              Game.player.registerKill(false);
+            }
             Net.myFrags = me.frags;
             Net.myDeaths = me.deaths;
           }
@@ -5678,7 +6216,9 @@ const Net = {
       if (Game.player.health <= 0) {
         if (attacker) attacker.frags = (attacker.frags || 0) + 1;
         this.myDeaths++;
+        Game.player.killStreak = 0;
         UI.addKill && UI.addKill(`${attackerName} → ${this.myName}${headshot ? ' (HS)' : ''}`, '#ff6666');
+        UI.showKillcam && UI.showKillcam(attackerName);
         this.broadcast({ t: 'frag', killer: attackerName, victim: this.myName, headshot });
         this.broadcast({ t: 'scores', scores: this.getScores() });
         this.checkMatchEnd();
@@ -5698,6 +6238,8 @@ const Net = {
         target.deaths = (target.deaths || 0) + 1;
         if (isFromHost) {
           this.myFrags++;
+          // CoD-style streak banner for the host
+          if (Game.player) Game.player.registerKill(headshot);
         } else if (attacker) {
           attacker.frags = (attacker.frags || 0) + 1;
         }
@@ -5994,7 +6536,361 @@ const Net = {
     document.getElementById('mpLanding').classList.remove('hidden');
   },
 
+  // ========================================================================
+  // PUBLIC DIRECTORY — discovery for online lobbies
+  // ========================================================================
+  // Called by Quick Match users — connects to or becomes the directory peer
+  // and exchanges lobby info.
+  async openDirectory() {
+    if (!this.isAvailable()) return false;
+    return new Promise((resolve) => {
+      let probe;
+      try {
+        probe = new Peer(this.DIRECTORY_ID, {
+          debug: 0,
+          config: {
+            'iceServers': [
+              { urls: 'stun:stun.l.google.com:19302' },
+              { urls: 'stun:stun1.l.google.com:19302' }
+            ]
+          }
+        });
+      } catch(e) {
+        resolve({ ok: false, reason: 'init' }); return;
+      }
+      let resolved = false;
+      probe.on('open', () => {
+        if (resolved) return;
+        resolved = true;
+        // We claimed the directory ID
+        this.isDirectory = true;
+        this.peerObj = probe;
+        this.myId = this.DIRECTORY_ID;
+        // Listen for incoming connections from clients (hosts/joiners)
+        probe.on('connection', (conn) => this.handleDirectoryConn(conn));
+        // Periodic cleanup of stale lobbies
+        this.directoryCleanupTimer = setInterval(() => this.cleanupStaleLobbies(), 5000);
+        resolve({ ok: true, role: 'directory' });
+      });
+      probe.on('error', (err) => {
+        if (resolved) return;
+        if (err.type === 'unavailable-id') {
+          // Directory exists; connect to it as a client
+          resolved = true;
+          probe.destroy();
+          this._connectToDirectory().then(resolve);
+        } else if (err.type === 'network' || err.type === 'server-error' || err.type === 'browser-incompatible') {
+          resolved = true;
+          resolve({ ok: false, reason: 'network' });
+        }
+      });
+      // Timeout fallback
+      setTimeout(() => {
+        if (!resolved) {
+          resolved = true;
+          try { probe.destroy(); } catch(e) {}
+          resolve({ ok: false, reason: 'timeout' });
+        }
+      }, 9000);
+    });
+  },
+
+  async _connectToDirectory() {
+    return new Promise((resolve) => {
+      // Create a fresh peer with random ID, then connect to directory
+      let probe;
+      try {
+        probe = new Peer(undefined, {
+          debug: 0,
+          config: {
+            'iceServers': [
+              { urls: 'stun:stun.l.google.com:19302' },
+              { urls: 'stun:stun1.l.google.com:19302' }
+            ]
+          }
+        });
+      } catch(e) {
+        resolve({ ok: false, reason: 'init' }); return;
+      }
+      let resolved = false;
+      probe.on('open', (myId) => {
+        const conn = probe.connect(this.DIRECTORY_ID, { reliable: true });
+        const timeout = setTimeout(() => {
+          if (!resolved) {
+            resolved = true;
+            try { probe.destroy(); } catch(e) {}
+            resolve({ ok: false, reason: 'timeout' });
+          }
+        }, 6000);
+        conn.on('open', () => {
+          clearTimeout(timeout);
+          if (resolved) return;
+          resolved = true;
+          this.peerObj = probe;
+          this.myId = myId;
+          this.directoryConn = conn;
+          conn.on('data', (data) => this.onDirectoryData(data));
+          conn.on('close', () => { this.directoryConn = null; });
+          resolve({ ok: true, role: 'client' });
+        });
+      });
+      probe.on('error', (err) => {
+        if (resolved) return;
+        resolved = true;
+        try { probe.destroy(); } catch(e) {}
+        if (err.type === 'peer-unavailable') {
+          // Directory disappeared — caller will retry as directory
+          resolve({ ok: false, reason: 'no-directory' });
+        } else {
+          resolve({ ok: false, reason: err.type || 'error' });
+        }
+      });
+    });
+  },
+
+  handleDirectoryConn(conn) {
+    conn.on('open', () => {
+      this.directoryClients[conn.peer] = conn;
+      // Send current lobby list right away
+      conn.send({ t: 'lobbies', list: this.getLobbyList() });
+    });
+    conn.on('data', (data) => {
+      if (data.t === 'announce') {
+        // Host registering or refreshing their lobby
+        this.publicLobbies[data.lobby.id] = {
+          ...data.lobby,
+          lastSeen: Date.now(),
+        };
+        this.broadcastLobbyList();
+      } else if (data.t === 'remove') {
+        delete this.publicLobbies[data.id];
+        this.broadcastLobbyList();
+      } else if (data.t === 'list') {
+        // Client requesting fresh list
+        conn.send({ t: 'lobbies', list: this.getLobbyList() });
+      }
+    });
+    conn.on('close', () => {
+      delete this.directoryClients[conn.peer];
+    });
+    conn.on('error', () => {
+      delete this.directoryClients[conn.peer];
+    });
+  },
+
+  onDirectoryData(data) {
+    if (data.t === 'lobbies') {
+      this.publicLobbies = {};
+      (data.list || []).forEach(l => { this.publicLobbies[l.id] = l; });
+      this.renderLobbyList();
+    }
+  },
+
+  getLobbyList() {
+    return Object.values(this.publicLobbies)
+      .filter(l => Date.now() - l.lastSeen < this.LOBBY_TTL_MS);
+  },
+
+  cleanupStaleLobbies() {
+    const now = Date.now();
+    let changed = false;
+    Object.keys(this.publicLobbies).forEach(id => {
+      if (now - this.publicLobbies[id].lastSeen > this.LOBBY_TTL_MS) {
+        delete this.publicLobbies[id];
+        changed = true;
+      }
+    });
+    if (changed) this.broadcastLobbyList();
+  },
+
+  broadcastLobbyList() {
+    const list = this.getLobbyList();
+    Object.values(this.directoryClients).forEach(conn => {
+      try { conn.send({ t: 'lobbies', list }); } catch(e) {}
+    });
+    this.renderLobbyList();
+  },
+
+  // Host: start announcing this lobby publicly
+  async announcePublic() {
+    if (!this.isHost || !this.myCode) return;
+    this.isPublic = true;
+
+    // Use a separate peer connection to the directory to avoid polluting
+    // the host peer used for game traffic.
+    if (!this._directoryPub) {
+      try {
+        this._directoryPub = new Peer(undefined, {
+          debug: 0,
+          config: { 'iceServers': [{ urls: 'stun:stun.l.google.com:19302' }] }
+        });
+      } catch(e) { return; }
+      this._directoryPub.on('open', () => {
+        const conn = this._directoryPub.connect(this.DIRECTORY_ID, { reliable: true });
+        conn.on('open', () => {
+          this._directoryPubConn = conn;
+          this._sendAnnounce();
+          this.directoryAnnounceTimer = setInterval(() => this._sendAnnounce(), this.ANNOUNCE_INTERVAL_MS);
+        });
+        conn.on('error', () => {});
+        conn.on('close', () => {});
+      });
+      this._directoryPub.on('error', (err) => {
+        // If the directory peer doesn't exist, try to claim it ourselves
+        // (a separate dedicated directory peer in parallel with our game peer)
+        if (err.type === 'peer-unavailable') {
+          this._tryClaimDirectoryAsAux();
+        }
+      });
+    } else {
+      this._sendAnnounce();
+    }
+  },
+
+  _sendAnnounce() {
+    if (!this.isHost || !this.isPublic || !this.myCode) return;
+    const lobby = {
+      id: this.myCode,
+      code: this.myCode,
+      hostName: this.myName,
+      mode: this.lobbyMode,
+      players: 1 + Object.keys(this.peers).length,
+      max: this.MAX_PLAYERS,
+      v: this.PROTOCOL_VERSION,
+      lastSeen: Date.now(),
+    };
+    if (this._directoryPubConn && this._directoryPubConn.open) {
+      try { this._directoryPubConn.send({ t: 'announce', lobby }); } catch(e) {}
+    } else if (this.isDirectory) {
+      this.publicLobbies[lobby.id] = lobby;
+      this.broadcastLobbyList();
+    }
+  },
+
+  _tryClaimDirectoryAsAux() {
+    // Last resort: try to become the directory while still hosting
+    try {
+      const dirPeer = new Peer(this.DIRECTORY_ID, {
+        debug: 0,
+        config: { 'iceServers': [{ urls: 'stun:stun.l.google.com:19302' }] }
+      });
+      dirPeer.on('open', () => {
+        this.isDirectory = true;
+        this._auxDirectoryPeer = dirPeer;
+        dirPeer.on('connection', (conn) => this.handleDirectoryConn(conn));
+        this.directoryCleanupTimer = setInterval(() => this.cleanupStaleLobbies(), 5000);
+        // Add own lobby
+        this.publicLobbies[this.myCode] = {
+          id: this.myCode, code: this.myCode, hostName: this.myName,
+          mode: this.lobbyMode, players: 1 + Object.keys(this.peers).length,
+          max: this.MAX_PLAYERS, v: this.PROTOCOL_VERSION, lastSeen: Date.now(),
+        };
+      });
+      dirPeer.on('error', () => { try { dirPeer.destroy(); } catch(e) {} });
+    } catch(e) {}
+  },
+
+  stopAnnounce() {
+    if (this.directoryAnnounceTimer) {
+      clearInterval(this.directoryAnnounceTimer);
+      this.directoryAnnounceTimer = null;
+    }
+    if (this._directoryPubConn && this.myCode) {
+      try { this._directoryPubConn.send({ t: 'remove', id: this.myCode }); } catch(e) {}
+    }
+    if (this._directoryPub) {
+      try { this._directoryPub.destroy(); } catch(e) {}
+      this._directoryPub = null;
+      this._directoryPubConn = null;
+    }
+    this.isPublic = false;
+  },
+
+  // Quick Match UI: open browser, populate list
+  async openQuickMatch() {
+    document.getElementById('mpQuickList').innerHTML = '<div class="quick-status">SCANNING NETWORK...</div>';
+    document.getElementById('mpLanding').classList.add('hidden');
+    document.getElementById('mpQuickMatch').classList.remove('hidden');
+
+    const result = await this.openDirectory();
+    if (!result.ok) {
+      // Show error
+      document.getElementById('mpQuickList').innerHTML =
+        `<div class="quick-status error">CANNOT REACH NETWORK<br><span style="font-size:9px;">${result.reason || 'unknown'}</span></div>`;
+      return;
+    }
+    // If we became the directory, the lobby list starts empty
+    // Render whatever we have
+    this.renderLobbyList();
+    // Request fresh list
+    if (this.directoryConn && this.directoryConn.open) {
+      try { this.directoryConn.send({ t: 'list' }); } catch(e) {}
+    }
+  },
+
+  renderLobbyList() {
+    const root = document.getElementById('mpQuickList');
+    if (!root) return;
+    const list = this.getLobbyList();
+    if (list.length === 0) {
+      root.innerHTML = `<div class="quick-status">NO ACTIVE LOBBIES.<br><span style="font-size:9px;">Tip: ask a friend to HOST + ENABLE PUBLIC, or refresh shortly.</span></div>`;
+      return;
+    }
+    list.sort((a, b) => b.lastSeen - a.lastSeen);
+    root.innerHTML = list.map(l => `
+      <button class="quick-lobby-row" data-code="${l.code}" data-mode="${l.mode}">
+        <div class="ql-mode ${l.mode === 'dm' ? 'dm' : 'coop'}">${l.mode === 'dm' ? 'DM' : 'CO-OP'}</div>
+        <div class="ql-info">
+          <div class="ql-host">${(l.hostName || 'OPERATOR').replace(/[<>]/g, '')}</div>
+          <div class="ql-code">CODE · ${l.code}</div>
+        </div>
+        <div class="ql-players">${l.players}/${l.max}</div>
+      </button>
+    `).join('');
+    root.querySelectorAll('.quick-lobby-row').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.dataset.code;
+        // Tear down our directory connection before joining
+        this.cleanupDirectory();
+        // Switch to join flow
+        document.getElementById('mpQuickMatch').classList.add('hidden');
+        document.getElementById('mpJoinLobby').classList.remove('hidden');
+        document.getElementById('mpJoinInput').value = code;
+        Net.startJoin(code);
+      });
+    });
+  },
+
+  cleanupDirectory() {
+    if (this.directoryAnnounceTimer) {
+      clearInterval(this.directoryAnnounceTimer);
+      this.directoryAnnounceTimer = null;
+    }
+    if (this.directoryCleanupTimer) {
+      clearInterval(this.directoryCleanupTimer);
+      this.directoryCleanupTimer = null;
+    }
+    if (this.directoryConn) {
+      try { this.directoryConn.close(); } catch(e) {}
+      this.directoryConn = null;
+    }
+    if (this.peerObj && (this.isDirectory || !this.isHost && !this.isPeer)) {
+      try { this.peerObj.destroy(); } catch(e) {}
+      this.peerObj = null;
+    }
+    this.isDirectory = false;
+    this.directoryClients = {};
+    this.publicLobbies = {};
+  },
+
+
   cleanup() {
+    this.stopAnnounce();
+    this.cleanupDirectory();
+    if (this._auxDirectoryPeer) {
+      try { this._auxDirectoryPeer.destroy(); } catch(e) {}
+      this._auxDirectoryPeer = null;
+    }
     Object.keys(this.remotePlayers).forEach(id => this.removeRemotePlayer(id));
     this.remotePlayers = {};
     Object.values(this.peers).forEach(p => {
@@ -6055,6 +6951,28 @@ const Input = {
         togglePause();
       }
       if (e.code === k.jump) e.preventDefault();
+
+      // Double-tap forward = tactical sprint (2.5s burst)
+      if (e.code === k.moveForward && !e.repeat) {
+        const now = performance.now();
+        if (now - Game.player.lastForwardTap < 280) {
+          Game.player.tacSprinting = true;
+          Game.player.tacSprintEndTime = now + 2500;
+        }
+        Game.player.lastForwardTap = now;
+      }
+
+      // Sprint + crouch = slide
+      if (e.code === k.crouch && Game.player.sprinting && Game.player.onGround && !Game.player.sliding) {
+        const now = performance.now();
+        Game.player.sliding = true;
+        Game.player.slideEndTime = now + 700;
+        // Lock current velocity direction at slide-start
+        const yaw = Game.player.yaw;
+        const fwdX = -Math.sin(yaw), fwdZ = -Math.cos(yaw);
+        const sp = Game.player.speed * Game.player.sprintMul * 1.15;
+        Game.player.slideVel.set(fwdX * sp, 0, fwdZ * sp);
+      }
     });
     document.addEventListener('keyup', e => { this.keys[e.code] = false; });
 
@@ -6362,6 +7280,67 @@ const UI = {
     void w.offsetWidth;
     w.classList.add('show');
   },
+
+  // CoD-style multi-kill / killstreak announcements
+  killStreakAnnounce(streak, headshot) {
+    let text, sub, color;
+    if (streak === 2)      { text = 'DOUBLE KILL';    sub = '+150 BONUS'; color = '#ffce00'; }
+    else if (streak === 3) { text = 'TRIPLE KILL';    sub = '+250 BONUS'; color = '#ff8c00'; }
+    else if (streak === 4) { text = 'KILLING SPREE';  sub = '+400 BONUS'; color = '#ff5500'; }
+    else if (streak === 5) { text = 'RAMPAGE';        sub = '+600 BONUS'; color = '#ff2222'; }
+    else if (streak === 6) { text = 'DOMINATING';     sub = '+800 BONUS'; color = '#ff00aa'; }
+    else if (streak === 7) { text = 'UNSTOPPABLE';    sub = '+1000 BONUS'; color = '#cc00ff'; }
+    else if (streak >= 8)  { text = 'GODLIKE';        sub = '+1500 BONUS'; color = '#00d9ff'; }
+    else return;
+
+    // Award bonus
+    const bonusMap = { 2: 150, 3: 250, 4: 400, 5: 600, 6: 800, 7: 1000, 8: 1500 };
+    const bonus = bonusMap[Math.min(8, streak)] || 1500;
+    Game.score += bonus;
+
+    const el = document.getElementById('killStreakBanner');
+    if (!el) return;
+    document.getElementById('ksTitle').textContent = text;
+    document.getElementById('ksSub').textContent = sub + (headshot ? ' · HEADSHOT' : '');
+    el.style.setProperty('--ks-color', color);
+    el.classList.remove('show');
+    void el.offsetWidth;
+    el.classList.add('show');
+  },
+
+  // Directional damage indicator (CoD-style)
+  hitDirection(fromDir) {
+    if (!Game.player) return;
+    // Compute angle relative to player's yaw — fromDir is world-space direction from attacker to player
+    // Convert to local: angle 0 = directly in front, π = behind
+    const yaw = Game.player.yaw;
+    // World forward when yaw=0 is -Z. fromDir is pointing FROM attacker to player.
+    // We want direction back toward attacker (negate)
+    const toAttacker = fromDir.clone().multiplyScalar(-1);
+    // Angle in world plane
+    const worldAngle = Math.atan2(toAttacker.x, -toAttacker.z); // 0 = -Z (north), +π/2 = +X (east)
+    // Player's facing in same frame
+    const playerAngle = yaw;
+    let rel = worldAngle - playerAngle;
+    while (rel > Math.PI) rel -= 2 * Math.PI;
+    while (rel < -Math.PI) rel += 2 * Math.PI;
+    // rel = 0 means attacker is directly in front. Show indicator at that angle around the screen edge.
+    const indicator = document.getElementById('hitDirIndicator');
+    if (!indicator) return;
+    indicator.style.transform = `translate(-50%, -50%) rotate(${rel}rad)`;
+    indicator.classList.remove('show');
+    void indicator.offsetWidth;
+    indicator.classList.add('show');
+  },
+
+  // Killcam-lite — show who killed you and where they were
+  showKillcam(killerName, killerDir) {
+    const el = document.getElementById('killcam');
+    if (!el) return;
+    document.getElementById('killcamName').textContent = killerName || 'UNKNOWN';
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 4500);
+  },
   setLoading(show, text, progress) {
     const ov = document.getElementById('loadingOverlay');
     if (show) {
@@ -6423,7 +7402,8 @@ function spawnWaveEnemies(count, wave) {
         tries++;
       }
       if (!valid) { x = 70; z = 70; }
-      const e = new Enemy(new THREE.Vector3(x, 0, z), pickEnemyType(wave));
+      const spawnY = groundHeightAt(x, z, 0.5);
+      const e = new Enemy(new THREE.Vector3(x, spawnY, z), pickEnemyType(wave));
       Game.enemies.push(e);
       Game.enemiesSpawned++;
     }, i * 400);
@@ -6910,6 +7890,8 @@ function openMpMenu() {
   document.getElementById('mpHostLobby').classList.add('hidden');
   document.getElementById('mpJoinLobby').classList.add('hidden');
   document.getElementById('mpJoinedLobby').classList.add('hidden');
+  const qm = document.getElementById('mpQuickMatch');
+  if (qm) qm.classList.add('hidden');
 }
 function closeMpMenu() {
   document.getElementById('mpMenu').classList.add('hidden');
@@ -6929,6 +7911,11 @@ document.getElementById('mpHostBtn').addEventListener('click', () => {
   document.querySelectorAll('.mp-mode-tab').forEach(t => {
     t.classList.toggle('active', t.dataset.mode === 'coop');
   });
+  // Reset public toggle
+  const pt = document.getElementById('mpPublicToggle');
+  pt.dataset.state = 'off';
+  pt.classList.remove('on');
+  pt.textContent = 'OFF';
   Net.lobbyMode = 'coop';
   Net.startHost();
 });
@@ -7005,6 +7992,45 @@ document.getElementById('mpCopyCode').addEventListener('click', () => {
       window.getSelection().removeAllRanges();
       window.getSelection().addRange(range);
     }
+  }
+});
+
+// === Quick Match handlers ===
+document.getElementById('mpQuickBtn').addEventListener('click', () => {
+  Audio.resume();
+  Net.openQuickMatch();
+});
+document.getElementById('mpQuickRefresh').addEventListener('click', () => {
+  if (Net.directoryConn && Net.directoryConn.open) {
+    try { Net.directoryConn.send({ t: 'list' }); } catch(e) {}
+  } else if (Net.isDirectory) {
+    Net.renderLobbyList();
+  } else {
+    // Re-establish
+    Net.cleanupDirectory();
+    Net.openQuickMatch();
+  }
+});
+document.getElementById('mpQuickBack').addEventListener('click', () => {
+  Net.cleanupDirectory();
+  document.getElementById('mpQuickMatch').classList.add('hidden');
+  document.getElementById('mpLanding').classList.remove('hidden');
+});
+
+// Public toggle in host lobby
+document.getElementById('mpPublicToggle').addEventListener('click', () => {
+  const btn = document.getElementById('mpPublicToggle');
+  const isOn = btn.dataset.state === 'on';
+  if (isOn) {
+    btn.dataset.state = 'off';
+    btn.classList.remove('on');
+    btn.textContent = 'OFF';
+    Net.stopAnnounce();
+  } else {
+    btn.dataset.state = 'on';
+    btn.classList.add('on');
+    btn.textContent = 'ON';
+    Net.announcePublic();
   }
 });
 
